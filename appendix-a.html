@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>별첨 A 데이터 출처</title>
+<meta name="description" content="MMORPG 로그 정제와 봇·작업장 탐지 팀 프로젝트 문서">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"><link rel="stylesheet" href="assets/site.css"></head>
+<body>
+<nav class="topnav"><div class="in"><a class="brand" href="index.html">Log <em>Watchdog</em></a><a href="index.html">홈</a><a href="plan.html">1차 기획서</a><a href="request.html">2차 요청서</a><a href="appendix-a.html" class="on">별첨 A</a><a href="appendix-b.html">별첨 B</a></div></nav>
+<main class="doc">
+<header class="doc-hero">
+  <span class="label">별첨 A</span>
+  <h1>실제 데이터 출처와<br>기업이 공개 출제한 대회</h1>
+  <p>가상 로그 생성기를 설계할 때 참고하고, 탐지 로직을 검증할 때 쓸 수 있는 <b>검증된 실제 데이터</b>와 <b>기업이 직접 문제를 낸 대회</b>를 정리했습니다. 출처별 원문 번역은 <a href="appendix-b.html">별첨 B</a>에 있습니다.</p>
+  <div class="meta">Log Watchdog 팀 프로젝트 · 자료 확인일 2026-10-13 · 각 수치는 원문 기준</div>
+  <div class="downloads noprint"><a class="btn ghost" href="downloads/appendix-a.pdf">PDF로 받기</a></div>
+</header>
+
+<div class="keybox">
+  <h4>핵심 요약</h4>
+  <ol>
+    <li><b>엔씨소프트 블레이드 앤 소울 실제 로그(약 100GB, 1만 명)</b>는 2017년 대회가 끝난 뒤 교육·연구 목적으로 복사하고 보관해도 되도록 공개됐습니다. 테스트 정답 라벨도 함께 공개됐습니다. <span class="pill">출처 B-7</span></li>
+    <li><b>엔씨소프트 아이온의 실제 봇 로그(22일, 184GB)</b>는 고려대 HCRL에 이메일로 신청해 받을 수 있습니다. 정답 라벨은 게임사가 실제로 제재한 계정입니다. <span class="pill">출처 B-1</span></li>
+    <li>엔씨소프트도 2017·2018·2019년 대회 때마다 <b>데이터 오류가 발견돼 다시 추출</b>했습니다. "정제 없이는 탐지도 없다"는 우리 기획의 문제의식을 뒷받침하는 실제 사례입니다. <span class="pill">출처 B-11</span></li>
+  </ol>
+</div>
+
+<nav class="toc noprint"><b>목차</b><ol>
+  <li><a href="#a1">기업이 직접 문제를 낸 대회</a></li>
+  <li><a href="#a2">지금 구할 수 있는 실제 데이터</a></li>
+  <li><a href="#a3">가상 데이터 설계에 쓰는 법</a></li>
+  <li><a href="#a4">대회 출제자들이 남긴 교훈</a></li>
+  <li><a href="#a5">이용할 때 주의할 점</a></li>
+  <li><a href="#a6">확인하지 못한 것</a></li>
+</ol></nav>
+
+<h2 id="a1"><span class="num">1</span>기업이 직접 문제를 낸 대회</h2>
+<p>"이 데이터를 줄 테니 이 문제를 풀어 보라"는 식으로, 게임사가 실제 서비스 로그를 내놓고 외부 분석가에게 공개 출제한 사례입니다.</p>
+<div class="tbl"><table>
+  <tr><th style="width:22%">대회</th><th style="width:14%">출제·제공</th><th>문제</th><th style="width:28%">데이터</th><th style="width:8%">번역</th></tr>
+  <tr><td>IEEE CIG 2017 게임 데이터 마이닝 대회 (GDMC 2017)</td><td>엔씨소프트 · GIST·세종대</td><td>블레이드 앤 소울 유저의 ① 이탈 여부, ② 남은 플레이 기간 예측. 월정액에서 부분 유료화로 바뀌는 시기를 넘나드는 예측이라 시간 변화에 강한 모델이 필요했습니다.</td><td>약 100GB, 1만 명. 82가지 로그 유형(접속·캐릭터·아이템·스킬·퀘스트·길드), 로그당 77개 필드. <b>대회 후 공개</b></td><td><a href="appendix-b.html#b7">B-7</a> <a href="appendix-b.html#b8">B-8</a></td></tr>
+  <tr><td>2018 빅콘테스트 챔피언리그</td><td>엔씨소프트 (한국정보화진흥원·빅데이터포럼 주최)</td><td>블레이드 앤 소울 유저의 지난 8주 활동으로 향후 12주 안의 이탈 시점을 4단계(1주·1달·2달·잔존)로 예측합니다.</td><td>학습 1만 명, 평가 4만 명. 활동(주 단위), 파티, 문파, 거래, 결제. 531팀 참가</td><td><a href="appendix-b.html#b13">B-13</a></td></tr>
+  <tr><td>2019 빅콘테스트 챔피언리그</td><td>엔씨소프트</td><td>리니지 유저의 생존 기간(1~64일)과 일별 결제 금액 예측. 정확도 대신 "기대 이익"으로 점수를 매겼습니다.</td><td>약 8만 명. 활동, 거래, 전투(PvP), 혈맹, 결제 5개 테이블</td><td><a href="appendix-b.html#b11">B-11</a> <a href="appendix-b.html#b12">B-12</a></td></tr>
+  <tr><td>2019 정보보호 R&amp;D 데이터 챌린지 · 게임봇 탐지 트랙</td><td>고려대 HCRL (아이온 로그 제공: 엔씨소프트)</td><td>아이온 유저 로그에서 게임봇 계정 찾기</td><td>22일(2010.4.16~5.7), 184GB. 정상 0, 봇 1 라벨</td><td><a href="appendix-b.html#b1">B-1</a></td></tr>
+  <tr><td>2019 Data Science Bowl (Kaggle)</td><td>PBS KIDS · Booz Allen Hamilton · Kaggle</td><td>어린이 교육 게임 앱 로그로 아이들이 무엇을 배우고 있는지 예측</td><td>PBS KIDS Measure Up! 앱의 익명 플레이 로그. 상금 16만 달러</td><td><a href="appendix-b.html#b15">B-15</a></td></tr>
+</table></div>
+<p class="note">빅콘테스트 데이터는 참가팀에게만 제공돼서 지금은 받기 어렵습니다. 대신 출제 의도, 테이블 구성, 평가 방식이 공개돼 있어서 <b>로그 구조와 문제 설계의 참고서</b>로 충분히 쓸 수 있습니다.</p>
+
+<h2 id="a2"><span class="num">2</span>지금 구할 수 있는 실제 데이터</h2>
+<div class="tbl"><table>
+  <tr><th style="width:21%">데이터</th><th>내용 · 규모</th><th style="width:12%">정답 라벨</th><th style="width:21%">구하는 방법</th><th style="width:16%">우리 용도</th></tr>
+  <tr><td>GDMC 2017 블레이드 앤 소울 로그</td><td>엔씨소프트 MMORPG 실제 로그 약 100GB, 1만 명. 유저별 CSV, 82가지 행동 유형</td><td>이탈 여부·생존 기간 (테스트 라벨 공개)</td><td>대회 홈페이지(GIST CILab)의 구글 그룹을 통해 다운로드 링크 제공. 교육·연구용 복사·보관 허용</td><td>로그 스키마의 뼈대, 행동 유형 체계</td></tr>
+  <tr><td>HCRL 아이온 게임봇 데이터</td><td>아이온 유저 활동 로그 22일, 184GB. 캐릭터명 삭제, IP·ID는 무작위 값으로 바꿈</td><td>정상/봇 (게임사 제재 목록, 사람이 검증)</td><td>김휘강 교수(cenda@korea.ac.kr)에게 신분과 사용 목적을 적어 이메일 신청</td><td>탐지 로직 검증 (메인 검증용)</td></tr>
+  <tr><td>IEEE DataPort · 유저 행동 기반 게임봇 탐지 데이터셋</td><td>88일, 캐릭터 49,739명 중 게임사가 확인한 봇 7,702명. 사냥·채집·거래·채팅·파티 특징값, 6가지 소셜 네트워크 지표. zip 514MB</td><td>정상 0 / 봇 1</td><td>IEEE DataPort 로그인·구독 필요</td><td>특징값 설계, 봇 비율 등 생성기 파라미터</td></tr>
+  <tr><td>IEEE DataPort · Game-Contagion</td><td>한 서버의 15개월(2010.12~2012.3) 로그. 캐릭터 94,444명 중 봇 사용 캐릭터 14,326명. 친구 네트워크, 봇 탐지 로그 포함. zip 154MB</td><td>봇 탐지 시각·ID</td><td>IEEE DataPort 로그인·구독 필요</td><td>작업장 네트워크·그래프 분석 참고</td></tr>
+  <tr><td>라그나로크 온라인 트래픽 트레이스</td><td>클라이언트 쪽 tcpdump 19개. 사람 4명(숙련 2, 초보 2)과 봇 프로그램 2종(Kore, DreamRO)</td><td>파일별 사람/봇 구분</td><td>대만 중앙연구원(Academia Sinica) 페이지</td><td>봇 행동 간격 패턴 참고 (보조)</td></tr>
+  <tr><td>OpenDota 데이터 덤프</td><td>도타2 공개 경기 11억 9천만 건(2011.3~2016.3). matches, player_matches, match_skill 3개 테이블</td><td>없음</td><td>Academic Torrents 토렌트, 4GB 샘플 CSV</td><td>대용량 처리 연습, 실제 경기 로그 구조</td></tr>
+  <tr><td>룬스케이프(OSRS) 실시간 거래소 가격 API</td><td>실제 게임 경제의 최신가, 5분·1시간 평균, 시계열</td><td>없음</td><td>무료, 키 없음. 설명이 담긴 User-Agent 필수</td><td>Kafka 실시간 수집 시연, 게임 경제 지표</td></tr>
+  <tr><td>Kaggle 2019 Data Science Bowl</td><td>PBS KIDS 교육 게임 앱의 익명 이벤트 로그</td><td>평가 결과</td><td>Kaggle 가입 후 대회 규칙 동의, 다운로드</td><td>실제 이벤트 로그 형식 참고</td></tr>
+  <tr><td>Kaggle PUBG 순위 예측</td><td>API로 수집한 약 6만 5천 경기, 28개 특징</td><td>최종 순위 비율</td><td>Kaggle 다운로드</td><td>치터 탐지 연구에 많이 쓰인 플레이어 통계</td></tr>
+</table></div>
+
+<h2 id="a3"><span class="num">3</span>가상 데이터 설계에 쓰는 법</h2>
+<p>실제 데이터에서 <b>구조</b>와 <b>비율</b>을 가져오면, 생성기가 "대충 만든 랜덤 데이터"가 아니라 근거 있는 시뮬레이션이 됩니다.</p>
+<div class="cards c2" style="margin-top:16px">
+  <div class="card"><div class="n">로그 스키마</div><h4>GDMC 2017 구조를 따름</h4><p>로그 하나에 공통(유형·시각·위치), 행위자(ID·레벨·종족), 대상물(아이템·등급·수량·스킬), 대상(대상 ID·골드·받은 피해) 4개 그룹. 행동은 82개 유형을 6개 분류(접속·캐릭터·아이템·스킬·퀘스트·길드)로 묶음.</p></div>
+  <div class="card"><div class="n">테이블 구성</div><h4>빅콘테스트 테이블을 참고</h4><p>2018 블소: 활동·결제·파티·문파·거래. 2019 리니지: 활동·거래·전투·혈맹·결제. Gold 레이어의 집계 테이블 설계에 그대로 참고할 수 있습니다.</p></div>
+  <div class="card"><div class="n">봇 비율</div><h4>12~16%</h4><p>아이온 49,530명 중 봇 6,213명(약 12.5%), IEEE DataPort 49,739명 중 7,702명(약 15.5%), Game-Contagion 캐릭터 94,444명 중 14,326명(약 15.2%). 생성기의 봇 비율 기본값으로 씁니다.</p></div>
+  <div class="card"><div class="n">탐지 특징값</div><h4>논문에서 검증된 40개</h4><p>접속·로그아웃 횟수, 플레이 시간, 보유 골드, IP 수, 채집·앉기·경험치·아이템 획득, 포털·텔레포트, 파티 시간, 길드 활동, 소셜 다양성. 봇은 하루 경험치 획득량이 압도적으로 많았습니다.</p></div>
+  <div class="card"><div class="n">봇 행동</div><h4>"자기 유사성"</h4><p>봇은 같은 행동을 반복해서 행동 패턴이 스스로와 닮아 갑니다. 2인 파티, 평균보다 긴 접속, 경험치 로그는 많고 종족 포인트 로그는 적은 패턴도 보고됐습니다.</p></div>
+  <div class="card red"><div class="n">헷갈리는 집단</div><h4>헤비 유저 ≠ 봇</h4><p>오래 플레이하고 빠르게 성장하는 헤비 유저가 봇으로 오탐되기 쉽습니다. "헤비 유저"를 별도 집단으로 나누자 오탐이 881건에서 327건으로 줄었습니다. 생성기에도 헤비 유저를 꼭 넣어야 합니다.</p></div>
+</div>
+
+<h2 id="a4"><span class="num">4</span>대회 출제자들이 남긴 교훈</h2>
+<ul class="plain">
+  <li><b>데이터 오류는 피할 수 없었습니다.</b> 엔씨소프트는 2017·2018·2019년 대회 모두 데이터 공개 후 오류가 발견돼 다시 추출했습니다. 2019년 참가자들은 대회 중간에 "fishing 변수 오류, 전투·비전투 시간 집계 오류" 공지를 받고 전처리를 처음부터 다시 했습니다. 출제팀은 "데이터 분석에도 단위 테스트 같은 소프트웨어 공학 기법이 필요하다"고 결론 내렸습니다.</li>
+  <li><b>재현성이 평가 항목이 됐습니다.</b> 2018년에는 대부분의 팀 코드를 재현할 수 없었습니다. 그래서 2019년부터 코드 제출 형식을 정하고 재현 여부를 점수(25점 만점)에 반영했습니다. 우리 파이프라인도 Docker로 누구나 다시 돌릴 수 있게 만들어야 합니다.</li>
+  <li><b>시간이 지나면 패턴이 바뀝니다.</b> 업데이트와 사업 모델 변경으로 유저 행동이 바뀌어, 학습 시점과 다른 시기의 데이터에서는 성능이 크게 떨어졌습니다. 패치로 스키마가 바뀌는 상황을 오염 유형에 넣은 것도 같은 이유입니다.</li>
+  <li><b>점수 차이 1~2%보다 실전 적용이 중요합니다.</b> 모델 수십 개를 조합한 팀보다 PC에서 15분이면 학습되는 가벼운 모델이 실무에는 더 유용해 보였다고 평가했습니다.</li>
+  <li><b>"성능이 제일 좋아서"는 설명이 아닙니다.</b> 본선에서 가장 많이 지적된 점이 기법 선택 이유를 성능으로만 설명한 것이었습니다.</li>
+</ul>
+
+<h2 id="a5"><span class="num">5</span>이용할 때 주의할 점</h2>
+<ul class="plain">
+  <li><b>원본 재배포 금지:</b> 신청해서 받은 데이터는 GitHub 저장소에 올리지 않습니다. 저장소에는 다운로드 방법과 출처만 적습니다.</li>
+  <li><b>인용 요청:</b> HCRL은 관련 논문 3편(SpringerPlus 2016, IEEE TIFS 2016, NDSS 2016)을, OpenDota는 프로젝트 인용을 요청합니다. 발표 자료와 README에 출처를 표기합니다.</li>
+  <li><b>신청은 일찍:</b> HCRL 데이터는 이메일 승인이 필요하고 응답 시점을 알 수 없습니다. 프로젝트 1주차에 신청합니다.</li>
+  <li><b>OSRS API 규칙:</b> python-requests, curl 같은 기본 User-Agent는 차단됩니다. "LogWatchdog-student-project - 연락처" 같은 설명형 User-Agent를 쓰고, 아이템별로 반복 호출하지 말고 전체를 한 번에 받습니다.</li>
+  <li><b>IEEE DataPort:</b> 다운로드에 로그인과 구독이 필요합니다. 학교나 기관 구독이 있는지 먼저 확인합니다.</li>
+</ul>
+
+<h2 id="a6"><span class="num">6</span>확인하지 못한 것</h2>
+<ul class="plain">
+  <li>GDMC 2017 데이터의 구글 그룹 다운로드 링크가 지금도 살아 있는지는 확인하지 못했습니다. 논문에는 공개됐다고 적혀 있지만, 홈페이지에는 직접 링크가 없습니다.</li>
+  <li>HCRL 데이터의 이용 조건(라이선스)은 페이지에 적혀 있지 않습니다. 받을 때 함께 확인해야 합니다.</li>
+  <li>Kaggle Data Science Bowl 2019 데이터의 컬럼 구성은 이번에 원문에서 확인하지 못했습니다.</li>
+  <li>IEEE DataPort 게임봇 데이터(88일)는 페이지에 게임 이름이 없습니다. 같은 연구실의 논문(B-4)이 아이온 88일 데이터를 쓰지만 인원수가 조금 달라서(49,530명 vs 49,739명) 같은 데이터인지 단정할 수 없습니다. HCRL 챌린지 데이터(22일)와는 기간이 달라 서로 다른 데이터입니다.</li>
+</ul>
+<a class="back noprint" href="#">↑ 맨 위로</a>
+</main>
+
+<footer class="sitefoot">Log Watchdog · AI Ready 데이터 엔지니어링 캠프 팀 프로젝트 · 기획 v0.2 · 2026.10</footer>
+</body></html>

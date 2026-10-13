@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>별첨 B 출처 번역</title>
+<meta name="description" content="MMORPG 로그 정제와 봇·작업장 탐지 팀 프로젝트 문서">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"><link rel="stylesheet" href="assets/site.css"></head>
+<body>
+<nav class="topnav"><div class="in"><a class="brand" href="index.html">Log <em>Watchdog</em></a><a href="index.html">홈</a><a href="plan.html">1차 기획서</a><a href="request.html">2차 요청서</a><a href="appendix-a.html">별첨 A</a><a href="appendix-b.html" class="on">별첨 B</a></div></nav>
+<main class="doc">
+<header class="doc-hero">
+  <span class="label">별첨 B</span>
+  <h1>출처별 원문 번역 정리</h1>
+  <p><a href="appendix-a.html">별첨 A</a>에서 인용한 18개 출처의 내용을 원문 구조대로 옮겼습니다. 숫자, 고유명사, 수식은 원문 그대로 두었습니다. 영어 원문은 번역했고, 한국어 원문은 핵심을 빠짐없이 정리했습니다.</p>
+  <div class="meta">원문 전문을 옮긴 것이 아니라 내용을 충실하게 옮긴 번역 정리입니다. 인용이나 발표에 쓸 때는 반드시 원문 링크로 확인해 주세요. · 확인일 2026-10-13</div>
+  <div class="downloads noprint"><a class="btn ghost" href="downloads/appendix-b.pdf">PDF로 받기</a></div>
+</header>
+
+<nav class="toc"><b>목차</b><ol>
+  <li><a href="#b1">HCRL 게임봇 탐지 챌린지 (아이온)</a></li>
+  <li><a href="#b2">IEEE DataPort · 게임봇 탐지 데이터셋</a></li>
+  <li><a href="#b3">IEEE DataPort · Game-Contagion</a></li>
+  <li><a href="#b4">논문 · Understand Watchdogs</a></li>
+  <li><a href="#b5">논문 · The gravy value</a></li>
+  <li><a href="#b6">라그나로크 봇 트래픽 트레이스</a></li>
+  <li><a href="#b7">논문 · GDMC 2017 대회 보고</a></li>
+  <li><a href="#b8">논문 · GDMC 2017 우승 솔루션</a></li>
+  <li><a href="#b9">보도자료 · Silicon Studio 우승</a></li>
+  <li><a href="#b10">GDMC 2017 대회 홈페이지</a></li>
+  <li><a href="#b11">엔씨소프트 · 2019 빅콘테스트 후기</a></li>
+  <li><a href="#b12">엔씨소프트 · 2019 빅콘테스트 소개</a></li>
+  <li><a href="#b13">엔씨소프트 · 2018 빅콘테스트 후기</a></li>
+  <li><a href="#b14">참가자 후기 3편</a></li>
+  <li><a href="#b15">2019 Data Science Bowl</a></li>
+  <li><a href="#b16">OpenDota 데이터 덤프</a></li>
+  <li><a href="#b17">OSRS 실시간 가격 API</a></li>
+  <li><a href="#b18">Kaggle PUBG 순위 예측</a></li>
+</ol></nav>
+
+<!-- ===================== DATA / CHALLENGE ===================== -->
+<h2><span class="num">Ⅰ</span>봇 탐지 데이터와 연구</h2>
+
+<section class="src" id="b1">
+  <div class="head"><span class="idx">B-1</span><span class="type data">데이터셋 · 대회</span><h3>Game Bot Detection Challenge (정보보호 R&amp;D 데이터 챌린지 2019 게임봇 탐지 트랙)</h3></div>
+  <dl><dt>제공</dt><dd>고려대학교 해킹대응기술연구실(HCRL) · 원천 데이터: 엔씨소프트 아이온</dd><dt>원문</dt><dd><a href="https://ocslab.hksecurity.net/Datasets/datachallenge2019/gamebot">ocslab.hksecurity.net/Datasets/datachallenge2019/gamebot</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <h5>배경</h5>
+  <ul><li>이 데이터는 "정보보호 R&amp;D 데이터 챌린지 2019"의 게임봇 탐지 트랙에서 쓰였습니다.</li><li>유저 활동 로그로 구성되며, 예선과 본선에는 서로 다르지만 이어지는 기간의 로그를 썼습니다.</li></ul>
+  <h5>게임</h5>
+  <ul><li>아이온(AION): 엔씨소프트가 2008년 11월부터 서비스한 MMORPG입니다.</li></ul>
+  <h5>데이터 구성</h5>
+  <ul><li>전체 크기 184GB, 기간은 2010-04-16부터 2010-05-07까지 22일입니다.</li>
+    <li>페이지에 소개된 필드: <code>actor</code>·<code>target</code>(캐릭터 ID 또는 NPC ID), <code>actor_account</code>·<code>target_account</code>(계정 ID 또는 NPC ID). 나머지 필드나 파일 목록은 페이지에 없습니다.</li></ul>
+  <h5>익명화</h5>
+  <ul><li>개인 식별 정보가 담길 수 있는 캐릭터 이름 같은 민감 정보는 삭제했습니다.</li>
+    <li>IP 주소, 캐릭터 ID, 계정 ID는 실제 유저 보호를 위해 무작위 값으로 바꿨습니다.</li>
+    <li>예선과 본선 데이터를 함께 변환했기 때문에, 두 기간에 모두 활동한 캐릭터는 같은 ID를 가집니다. 대회 당시 제공된 데이터와는 이 점이 다릅니다.</li></ul>
+  <h5>라벨링</h5>
+  <ul><li>유효한 계정 목록에 정상(0) 또는 게임봇(1) 라벨이 붙어 있습니다.</li>
+    <li>로그 기간 동안 3시간 넘게 활동한 캐릭터가 하나 이상 있는 계정만 포함했습니다.</li>
+    <li>정답은 게임사가 제공한 제재 목록입니다. 제재된 유저는 모두 사람의 검토와 모니터링으로 검증했습니다.</li></ul>
+  <h5>받는 방법</h5>
+  <ul><li>김휘강 교수(cenda@korea.ac.kr)에게 신분과 사용 목적을 적어 메일을 보내면 됩니다.</li></ul>
+  <h5>인용을 요청한 논문</h5>
+  <ul><li>Kang 외 (2016). Multimodal game bot detection using user behavioral characteristics. <i>SpringerPlus</i>, 5(1).</li>
+    <li>Kwon 외 (2016). Crime scene reconstruction: Online gold farming network analysis. <i>IEEE TIFS</i>, 12(3).</li>
+    <li>Lee 외 (2016). You are a Game Bot!: Uncovering Game Bots in MMORPGs via Self-similarity in the Wild. <i>NDSS</i>.</li></ul>
+  <h5>페이지에 없는 정보</h5>
+  <ul><li>계정·캐릭터·레코드·봇 수, 클래스 비율, 라이선스와 재배포 조건은 적혀 있지 않습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 정답이 "실제 제재 기록"이라 탐지 로직을 검증하기에 가장 신뢰할 만한 데이터입니다. "3시간 이상 활동 계정만 포함" 같은 필터 기준도 우리 Gold 레이어에 그대로 가져올 수 있습니다.</div>
+</section>
+
+<section class="src" id="b2">
+  <div class="head"><span class="idx">B-2</span><span class="type data">데이터셋</span><h3>Game Bot Detection Dataset Based on User Behavioral Characteristics</h3></div>
+  <dl><dt>저자</dt><dd>강아름, 정성훈(고려대), Aziz Mohaisen, 김휘강(고려대)</dd><dt>등록</dt><dd>IEEE DataPort, 2025-11-24 · DOI 10.21227/8q6x-bp56</dd><dt>원문</dt><dd><a href="https://ieee-dataport.org/documents/game-bot-detection-dataset-based-user-behavioral-characteristics">ieee-dataport.org/documents/game-bot-detection-dataset-…</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <h5>설명</h5>
+  <ul><li>대형 MMORPG 서비스의 장기간 게임 내 행동 로그입니다. 게임 이름은 적혀 있지 않습니다.</li>
+    <li>88일간의 플레이, 캐릭터 49,739명, 그중 운영사가 봇으로 확인한 캐릭터 7,702명을 담고 있습니다.</li>
+    <li>사냥, 채집, 거래, 채팅, 파티 같은 활동의 서버 이벤트 로그에서 특징값을 뽑았습니다. 개인정보는 게임사 내부 정책에 따라 익명화했습니다.</li></ul>
+  <h5>포함된 특징값 (페이지의 "일반적으로 포함" 목록)</h5>
+  <ul><li><b>플레이어 정보:</b> 로그인 빈도, 플레이 시간, 게임 머니, 고유 IP 수</li>
+    <li><b>플레이어 행동:</b> 앉기, 경험치 획득, 아이템 획득, 돈 획득, 채집(최대 횟수 포함), PK 포인트, 부활, 포털 사용 횟수. 반복적이고 좁은 플레이를 잡아내기 위해 행동 비율도 포함합니다.</li>
+    <li><b>그룹 활동:</b> 파티 플레이 시간, 길드 활동 횟수</li>
+    <li><b>소셜 상호작용 다양성:</b> 파티, 친구, 거래, 귓속말, 우편, 상점, 길드 상호작용의 섀넌 엔트로피</li>
+    <li><b>네트워크 지표:</b> 6개 방향성 네트워크(파티, 친구, 거래, 귓속말, 우편, 상점)에 대한 중심성(연결·매개·근접·고유벡터), 이심률, 허브·권위 점수, 페이지랭크, 군집 계수. 네트워크 모티프와 트라이어드 센서스도 쓸 수 있다고 합니다.</li></ul>
+  <h5>라벨 · 파일 · 이용</h5>
+  <ul><li>0 = 사람, 1 = 게임봇 (운영사가 확인한 제재 계정 목록 기준)</li>
+    <li>"Game Bot Detection.zip" 514.57MB, CSV와 TXT 형식. 행 수는 적혀 있지 않습니다.</li>
+    <li>로그인과 구독이 필요합니다. 라이선스는 적혀 있지 않습니다. 관련 논문은 SpringerPlus(2016)입니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 봇 비율(약 15.5%)과 특징값 목록을 생성기와 탐지 규칙 설계에 그대로 참고할 수 있습니다. 특히 "소셜 다양성(엔트로피)"은 봇이 사회 활동을 거의 하지 않는다는 점을 숫자로 잡아내는 좋은 특징값입니다.</div>
+</section>
+
+<section class="src" id="b3">
+  <div class="head"><span class="idx">B-3</span><span class="type data">데이터셋</span><h3>Game-Contagion: Cheating Behavior Diffusion Dataset from MMORPG Social Networks</h3></div>
+  <dl><dt>저자</dt><dd>우지영, 강성욱, 김휘강(고려대), 박주용</dd><dt>등록</dt><dd>IEEE DataPort, 2025-11-26 · DOI 10.21227/5pnm-5k96</dd><dt>원문</dt><dd><a href="https://ieee-dataport.org/documents/game-contagion-cheating-behavior-diffusion-dataset-mmorpg-social-networks">ieee-dataport.org/documents/game-contagion-…</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <h5>설명</h5>
+  <ul><li>부정행위(주로 게임봇 사용)가 게임 내 소셜 네트워크를 통해 어떻게 퍼지는지 기록한 데이터입니다. 사회적 전염, 강화 효과, 행동 확산 연구용입니다. 게임 이름은 적혀 있지 않습니다.</li></ul>
+  <h5>구성 (로그 3종)</h5>
+  <ul><li><b>소셜 강화 로그:</b> 부정행위 채택에 영향을 줄 수 있는 플레이어 간 상호작용. 접촉 빈도, 다양성, 친밀도를 잴 수 있습니다.</li>
+    <li><b>봇 탐지 로그:</b> 봇으로 탐지된 캐릭터의 시각과 익명 ID. 정답 라벨 역할을 합니다.</li>
+    <li><b>친구 로그:</b> 게임 내 친구 네트워크. 소셜 그래프와 확산 경로를 만드는 데 씁니다.</li></ul>
+  <h5>규모</h5>
+  <ul><li>40개 넘는 서버 중 무작위로 고른 실제 서버 1개, 기간 2010-12-21 ~ 2012-03-21</li>
+    <li>플레이어 39,416명의 캐릭터 94,444명, 그중 봇을 쓴 플레이어 11,259명의 캐릭터 14,326명</li>
+    <li>15개월간 확인된 봇 행동 3,629,282건 · Game-Contagion.zip 153.85MB (TSV, CSV)</li>
+    <li>로그인·구독 필요, 라이선스 미기재. 원 논문(IEEE Xplore 8355800) 인용을 요청합니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 2단계 그래프 분석의 근거 자료입니다. "봇 사용은 친구를 통해 전염된다"는 관점으로 작업장 네트워크를 설명할 수 있습니다.</div>
+</section>
+
+<section class="src" id="b4">
+  <div class="head"><span class="idx">B-4</span><span class="type paper">논문</span><h3>Understand Watchdogs: Discover How Game Bot Get Discovered</h3></div>
+  <dl><dt>저자</dt><dd>박은지, 박경호, 김휘강 (고려대 정보보호학부)</dd><dt>원문</dt><dd><a href="https://arxiv.org/pdf/2011.13374">arXiv 2011.13374</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <h5>초록</h5>
+  <ul><li>게임봇은 다른 플레이어를 방해하고 게임 경제를 망가뜨립니다. 게임사는 학습 기반 탐지기를 쓰지만, 탐지기는 판단 이유를 거의 설명하지 못합니다.</li>
+    <li>저자들은 아이온의 사람·봇 로그로 설명 가능한 AI(XAI) 모델을 만들고, 설명이 얼마나 믿을 만한지 평가했습니다. 해석 가능성이 사람을 봇으로 잘못 제재하는 일을 줄일 수 있다고 주장합니다.</li></ul>
+  <h5>1. 서론</h5>
+  <ul><li>게임봇은 게임 자산을 자동으로 모으는 프로그램입니다. 게임 자산을 현금으로 파는 현금 거래(RMT)에 쓰기 좋고, 약한 몬스터 사냥 같은 행동을 반복합니다.</li>
+    <li>작업장(Gold Farmer Group)은 봇을 대량으로 운영해 불법 수익을 냅니다. 싼값에 자산을 팔아 게임사의 인앱 결제를 잠식하고, 아이템을 독점하고, 일반 유저를 떠나게 합니다.</li>
+    <li>초기 탐지는 채팅, 소셜 이벤트 등에서 봇 패턴을 찾는 데이터 마이닝이었습니다. 특징값 설계에 크게 의존해서, 봇이 행동을 바꾸거나 게임이 업데이트되면 무너졌습니다.</li>
+    <li>머신러닝과 딥러닝은 성능이 좋지만 개별 판정의 이유를 설명하지 못합니다. 운영자는 봇 판정의 근거가 필요합니다.</li></ul>
+  <h5>2. 선행 연구 (탐지 방법 분류)</h5>
+  <div class="tbl"><table><tr><th>연구</th><th>데이터</th><th>방법 · 핵심</th></tr>
+    <tr><td>Kang 외 2013</td><td>아이온</td><td>규칙 기반. 봇은 2인 파티를 맺고, 평균보다 오래 접속하며, 경험치 로그가 많고 종족 포인트 로그가 적음. 정확도 95.92%</td></tr>
+    <tr><td>Chung 외 2013</td><td>열혈강호 온라인</td><td>행동 특징 12개 + 고급 특징 5개, 플레이 스타일 4유형으로 군집화 후 다중 SVM</td></tr>
+    <tr><td>Lee 외 2016</td><td>리니지, 아이온, 블소</td><td>봇의 "자기 유사성"(같은 행동 반복) 활용, 로지스틱 회귀 정확도 95%</td></tr>
+    <tr><td>Lee 외 2018</td><td>리니지</td><td>캐릭터 간 거래를 네트워크로 그려 암시장 노출</td></tr>
+    <tr><td>Park 외 2019</td><td>아이온</td><td>재화 시계열 LSTM, 정확도 95% 이상</td></tr>
+    <tr><td>Tsaur 외 2019</td><td>KANO</td><td>딥러닝으로 이상 비율 계산, 봇처럼 행동하는 "회색 지대" 유저 제시</td></tr>
+    <tr><td>Tao 외 2018 (NGUARD)</td><td>NetEase MMORPG</td><td>전처리·온라인 추론·자동 반복·오프라인 학습 프레임워크, ABLSTM, 정밀도 97% 이상</td></tr></table></div>
+  <h5>3. 실험</h5>
+  <ul><li><b>데이터:</b> 엔씨소프트 아이온 로그를 고려대 HCRL이 전처리. 3시간 넘게 플레이한 49,530명(봇 6,213명), 4월 10일 ~ 7월 5일 88일. 라벨은 엔씨소프트의 수동 로그 검토로 확인했고, 고객 문의로 혐의를 벗은 경우 라벨을 고쳤습니다. 클래스 불균형은 오버샘플링과 언더샘플링으로 처리했습니다.</li>
+    <li><b>특징값 40개 (3분류):</b> 플레이어 정보(로그인·로그아웃 횟수, 플레이 시간, 돈, 총 로그인 수, IP 수, 최고 레벨), 플레이어 행동(채집, 앉기, 경험치, 아이템, 돈, 어비스, 경험치 복구, 포털, 사망, 텔레포트, 부활), 소셜 활동(파티 시간, 길드 활동, 길드 가입, 소셜 다양성). 레벨 5 미만 플레이어는 제외했습니다.</li>
+    <li><b>모델:</b> 랜덤 포레스트(검증 정확도 88.51%), 다층 퍼셉트론(90.10% 이상). 설명 기법은 특징 중요도, 순열 중요도, LIME(SP-LIME), SHAP.</li></ul>
+  <h5>4. 결과</h5>
+  <ul><li>랜덤 포레스트 특징 중요도 1위는 하루 플레이 시간, 그다음이 하루 아이템 획득 횟수와 경험치 획득 횟수였습니다.</li>
+    <li>LIME 사례 분석: 봇은 사람보다 하루 경험치 획득량이 압도적으로 많았습니다.</li>
+    <li>SHAP: 플레이 시간의 영향이 가장 컸고, 로그인 횟수와 경험치 획득 횟수가 뒤를 이었습니다.</li>
+    <li>상위 특징을 빼도 정확도는 거의 떨어지지 않았습니다(88.21~89.37%).</li>
+    <li><b>헤비 유저 분석:</b> 오탐 사례에서 경험치 획득 비율이 가장 큰 영향을 줬습니다. "사람"에서 "헤비 유저"를 별도 클래스로 떼어 내자 정확도가 96.02%로 오르고 오탐이 881건에서 327건으로 줄었습니다.</li></ul>
+  <h5>5. 결론</h5>
+  <ul><li>LIME이 가장 좋은 설명을 줬다고 평가했습니다. 헤비 유저와 봇은 둘 다 자산을 빨리 모아 과거 모델을 헷갈리게 했는데, XAI가 이를 풀었다고 주장합니다. 설명은 억울한 제재에 대한 이의 제기와 로그 설계 개선에도 도움이 됩니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · ① 생성기에 "헤비 유저"를 꼭 넣어야 오탐 문제를 시연할 수 있습니다. ② 대시보드의 "탐지 사유" 칸에 SHAP·LIME 설명을 붙이면 운영자 관점의 완성도가 올라갑니다.</div>
+</section>
+
+<section class="src" id="b5">
+  <div class="head"><span class="idx">B-5</span><span class="type paper">논문</span><h3>The gravy value: A set of features for pinpointing BOT detection method</h3></div>
+  <dl><dt>저자</dt><dd>박세미, 이경호(교신) · 고려대</dd><dt>발표</dt><dd>WISA 2020 (제주, 2020.8.26~28), LNCS vol.12583 pp.142–153 · DOI 10.1007/978-3-030-65299-9_11</dd><dt>원문</dt><dd><a href="https://pure.korea.ac.kr/en/publications/the-gravy-value-a-set-of-features-for-pinpointing-bot-detection-m/">pure.korea.ac.kr</a> (초록 페이지)</dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <h5>초록</h5>
+  <ul><li>온라인 게임 시장이 커지면서 불법 활동, 특히 게임 아이템을 모으는 게임봇이 늘었습니다. 보통 게임사가 이를 제재합니다. 저자들은 피해가 탈세나 자금 세탁 수준을 넘어선다고 봅니다.</li>
+    <li>아이온 데이터로 서버 쪽 유저 행동을 분석했습니다. 특징값은 경험치, 스킬, 그리고 비용 대비 효율을 재는 "그레이비 값(gravy value)"에 기반합니다.</li>
+    <li>MLP, SVM, 랜덤 포레스트로 실험했고, 봇 계정과 실제 유저 계정을 구분하는 최고 F-score는 0.9638이었습니다.</li></ul>
+  <h5>페이지에 없는 정보</h5>
+  <ul><li>초록 페이지라서 그레이비 값의 계산식과 실험 세부 사항은 없습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · "투입 시간 대비 얻은 경험치·재화" 같은 효율 지표를 특징값으로 만들 수 있습니다. 봇은 효율이 비정상적으로 일정하고 높습니다.</div>
+</section>
+
+<section class="src" id="b6">
+  <div class="head"><span class="idx">B-6</span><span class="type data">데이터셋</span><h3>Ragnarok Online Traffic Traces for Game Bot Identification</h3></div>
+  <dl><dt>수집</dt><dd>Kuan-Ta Chen (대만 중앙연구원 Academia Sinica)</dd><dt>원문</dt><dd><a href="https://homepage.iis.sinica.edu.tw/~swc/traces/ro_bots">homepage.iis.sinica.edu.tw/~swc/traces/ro_bots</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <ul><li>MMORPG 라그나로크 온라인의 클라이언트 쪽 tcpdump 트레이스 19개입니다.</li>
+    <li><b>사람 4명:</b> Gino와 Kiya는 1년 넘게 플레이한 숙련자(레벨 60 이상, 좋은 장비)이고, Kuan-Ta(레벨 5)와 Jhih-Wei(레벨 40)는 초보입니다.</li>
+    <li><b>봇 2종:</b> Kore와 DreamRO. 둘 다 커뮤니티에서 흔한 "사냥 → 줍기 → 거래" 반복 스크립트를 쓰며, 숙련도와 직업이 다른 캐릭터로 돌렸습니다.</li>
+    <li>파일: Gino A1~A2, Kiya B1~B4, Kuan-Ta C1, Jhih-Wei D1, Kore K1~K5, DreamRO R1~R6</li>
+    <li>관련 논문: "Identifying MMORPG Bots: A Traffic Analysis Approach" (EURASIP Journal on Advances in Signal Processing). 파일 크기, 수집 날짜, 이용 조건은 적혀 있지 않습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 네트워크 패킷 수준 데이터라 우리 파이프라인과는 층위가 다릅니다. 다만 숙련자·초보·봇의 차이를 보여 주는 실데이터라서, 생성기의 행동 간격 분포를 잡을 때 참고할 수 있습니다.</div>
+</section>
+
+<!-- ===================== GDMC ===================== -->
+<h2><span class="num">Ⅱ</span>엔씨소프트 GDMC 2017 (블레이드 앤 소울)</h2>
+
+<section class="src" id="b7">
+  <div class="head"><span class="idx">B-7</span><span class="type paper">논문 · 대회 보고</span><h3>Game Data Mining Competition on Churn Prediction and Survival Analysis using Commercial Game Log Data</h3></div>
+  <dl><dt>저자</dt><dd>이은조, 장윤재, 윤두밈, 전지훈 외, 김경중 등 17명</dd><dt>발표</dt><dd>IEEE Transactions on Games, 2018 · arXiv 1802.02301 · DOI 10.1109/TG.2018.2888863</dd><dt>원문</dt><dd><a href="https://cilab.gist.ac.kr/hp/wp-content/uploads/2018/12/1.-Game-Data-Mining-Competition-on.pdf">GIST CILab PDF</a> · <a href="https://arxiv.org/abs/1802.02301">arXiv</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <h5>초록 · 동기</h5>
+  <ul><li>게임사는 데이터를 거의 공유하지 않아서 게임 데이터 마이닝과 AI 연구가 제한됩니다. 저자들은 엔씨소프트 블레이드 앤 소울의 1만 명, 약 100GB 로그로 국제 대회를 열고 데이터를 공개했습니다.</li>
+    <li>과제는 월정액에서 부분 유료화로 바뀌는 시기를 넘어 유저의 이탈 여부와 시점을 예측하는 것이었습니다. 상위권은 딥러닝, 트리 부스팅, 선형 회귀를 썼습니다.</li>
+    <li>기존 게임 AI 대회는 게임을 플레이하는 에이전트 위주였고, 게임 로그 연구는 2013년 급증 이후 정체됐다고 봅니다.</li></ul>
+  <h5>대회 설계</h5>
+  <ul><li><b>대상:</b> 누적 결제가 기준 이상이고 활동이 많은 충성 유저만 포함했습니다. 가벼운 유저와 악성 유저는 제외했습니다. 엔씨소프트는 결제·플레이 시간·콘텐츠 이용으로 k-means를 돌려 유저를 14개 충성도 등급(낮을수록 충성)으로 나누는데, 최근 3개월 중 9등급 이상을 두 번 이상 받은 유저(전체의 30% 미만)를 골랐습니다.</li>
+    <li><b>이탈 정의:</b> 5주 넘게 플레이하지 않은 유저. 서버 점검에 맞춰 주는 수요일~수요일로 셉니다.</li>
+    <li><b>예측 시점:</b> 5주 이탈 창이 시작되기 3주 전에 예측합니다.</li>
+    <li><b>생존 분석(트랙 2):</b> 관측이 끝나지 않은 유저가 있어서 오른쪽 중도절단(right-censored) 문제로 다룹니다.</li>
+    <li><b>개념 변화:</b> 테스트 1은 학습 데이터 2개월 뒤, 테스트 2는 7개월 뒤 데이터입니다. 그 사이 2016년 12월에 사업 모델이 바뀌었습니다. 라벨 없는 테스트 데이터를 학습에 써도 됐습니다.</li></ul>
+  <h5>데이터</h5>
+  <ul><li>로그 유형은 수백 가지지만 대회에는 주요 82가지(접속, 캐릭터, 아이템, 스킬, 퀘스트, 길드)를 썼습니다.</li>
+    <li>로그 유형마다 77개 필드가 있고 4개 그룹으로 나뉩니다: <b>공통</b>(로그 유형, 시각, 위치), <b>행위자</b>(ID, 레벨, 종족), <b>대상물</b>(아이템 ID, 등급, 수량, 스킬명), <b>대상</b>(대상 ID, 골드, 받은 피해).</li>
+    <li>악성 활동 정황이 있는 유저는 제거했습니다. 엔씨소프트의 탐지 규칙은 기밀입니다.</li></ul>
+  <h5>평가 · 일정 · 참가</h5>
+  <ul><li>트랙 1은 F1 점수, 트랙 2는 RMSLE(낮을수록 좋음). 중도절단 때문에 실제보다 길게 예측하면 맞힌 것으로 처리했습니다.</li>
+    <li>2017.4.15 샘플과 스키마 공개 → 4.30 전체 데이터 공개 → 5.19 테스트 서버(테스트 데이터 10%) → 마감 7.31에서 8.10으로 연장.</li>
+    <li>구글 그룹 가입자는 약 300명. 한국, 독일, 핀란드, 일본에서 제출했고, 트랙 1은 13팀, 트랙 2는 5팀이 제출했습니다.</li></ul>
+  <h5>결과</h5>
+  <ul><li><b>트랙 1:</b> Yokozuna Data 1위(최종 약 0.62, 테스트 1 0.61, 테스트 2 0.63). UTU, TripleS, TheCowKing이 0.60. 기준선(특징 22개 + 라쏘 회귀)은 F1 0.48이었고, 13팀 중 8팀이 기준선을 넘었습니다.</li>
+    <li><b>트랙 2:</b> Yokozuna Data 1위(0.72). IISLABSKKU 0.81, UTU 0.91, TripleS 0.92, DTND 0.97. 테스트 서버 최고 점수는 0.41이었지만 최종과는 차이가 컸습니다.</li>
+    <li>테스트 서버(10% 데이터)와 최종 순위가 크게 달랐습니다. 저자들은 과적합 때문으로 봅니다.</li>
+    <li>참고할 만한 접근: MNDS는 8주 시계열을 13×56 픽셀 이미지(Gramian Angular Field)로 바꿔 Inception-V3에 넣었습니다. goedle.io는 약 600개 이벤트 기반 특징값을 만들고 이상치 유저 0.5%를 제거했습니다.</li></ul>
+  <h5>교훈</h5>
+  <ul><li>트랙 1에서 압도적인 기법은 없었습니다. 학습 알고리즘보다 특징 설계, 전처리, 선택이 더 중요했습니다.</li>
+    <li>충성 유저만으로 학습하면 F1이 0.39~0.53으로, 전체 유저(0.6~0.72)보다 훨씬 어려웠습니다.</li>
+    <li>시간 간격의 영향: 같은 시기 유저에서 F1 약 0.45였던 모델이 2개월 뒤 유저에서는 0.04~0.3으로 떨어졌습니다.</li>
+    <li>테스트 서버에서 정답이 새지 않도록 보안이 필요하고, 다음에는 Kaggle 같은 플랫폼을 고려해야 한다고 했습니다.</li></ul>
+  <h5>데이터 공개</h5>
+  <ul><li>대회 뒤 엔씨소프트는 참가자와 다른 사람들이 <b>교육, 학술, 연구 목적으로 데이터를 복사하고 보관하도록 허락</b>했습니다. 테스트 라벨도 공개했습니다. 데이터는 GDMC 2017 홈페이지와 구글 그룹 페이지에서 받을 수 있다고 적혀 있습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · "로그 하나 = 공통·행위자·대상물·대상 4개 그룹"이라는 구조를 우리 로그 스키마에 그대로 쓸 수 있습니다. 실제 게임사가 쓴 구조라는 근거가 생깁니다. "시간이 지나면 성능이 무너진다"는 결과는 패치에 따른 스키마 변경을 오염 유형에 넣은 근거가 됩니다.</div>
+</section>
+
+<section class="src" id="b8">
+  <div class="head"><span class="idx">B-8</span><span class="type paper">논문</span><h3>The Winning Solution to the IEEE CIG 2017 Game Data Mining Competition</h3></div>
+  <dl><dt>저자</dt><dd>Yokozuna Data (Silicon Studio) 연구진</dd><dt>원문</dt><dd><a href="https://arxiv.org/html/1901.05147v1">arXiv 1901.05147</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <h5>초록</h5>
+  <ul><li>GDMC 2017 두 트랙의 우승 솔루션입니다(참가자 250명 이상). 이진 예측에는 LSTM, 생존 기간 예측에는 조건부 추론 생존 앙상블을 썼습니다.</li>
+    <li>이탈에는 본질적으로 중도절단이 있으므로 이를 다루는 생존 분석 방법이 결정적이었다고 주장합니다. 모델은 데이터셋 사이의 사업 모델 변화(월정액 → 부분 유료화)에도 버텼고 계산도 효율적이었습니다.</li></ul>
+  <h5>데이터 (표 1)</h5>
+  <div class="tbl"><table><tr><th>세트</th><th>기간</th><th>주</th><th>인원</th><th>크기</th></tr>
+    <tr><td>학습</td><td>2017-04-01 ~ 2017-05-11</td><td>6</td><td>4,000</td><td>48GB</td></tr>
+    <tr><td>테스트 1</td><td>2016-07-27 ~ 2016-09-21</td><td>8</td><td>3,000</td><td>30GB</td></tr>
+    <tr><td>테스트 2</td><td>2017-12-14 ~ 2017-02-08 (원문 표기 그대로, 날짜가 맞지 않음)</td><td>8</td><td>3,000</td><td>30GB</td></tr></table></div>
+  <ul><li>각 세트에서 약 30%가 이탈했습니다. 로그는 유저별 CSV이고, 각 행에 시각, 행동 유형, 세부 내용(최대 72컬럼)이 있습니다.</li>
+    <li>리더보드는 테스트 세트의 10%만 썼고, 제출은 30분에 한 번으로 제한됐습니다.</li></ul>
+  <h5>특징값 (유저당 3,000개 이상)</h5>
+  <ul><li><b>일 단위 시계열:</b> 행동 횟수(관련 행동 묶음: 팀, 길드, 퀘스트, 거래 받기, 거래 주기, 스킬, 아이템, 경매), 세션 수, 총 플레이 시간, 마지막 레벨과 성장, 상대한 최고 레벨, 플레이한 캐릭터 수, 번 돈과 쓴 돈, 장비 점수</li>
+    <li><b>정적·요약:</b> 전체 기간 통계, 시계열의 평균·중앙값·표준편차·합, 주로 쓰는 캐릭터 수, 가입한 길드 수, 요일별 행동 분포</li></ul>
+  <h5>특징 선택 (3가지)</h5>
+  <ul><li>LSTM 오토인코더로 시계열 특징을 최대 500개로 축소했습니다.</li>
+    <li><b>분포 기반(A):</b> 학습 세트에서 특징별 95% 신뢰구간을 구하고, 테스트 값의 70% 넘게 구간 안에 들어오는 특징만 남겼습니다. 사업 모델이 바뀌어 테스트 2 유저가 훨씬 많은 경험치를 얻었기 때문에 중요했습니다.</li>
+    <li><b>중요도 기반(B):</b> AUC 기반 순열 중요도를 썼습니다.</li></ul>
+  <h5>모델과 결과</h5>
+  <ul><li><b>트랙 1:</b> 테스트 1은 Extremely Randomized Trees(트리 50개, 분할 최소 표본 50, 지니)가 F1 0.6096으로 최고. 테스트 2는 LSTM 2층 + 정적 특징 완전연결층 + MLP 구조가 F1 0.6377로 최고. 모든 모델에서 테스트 2 점수가 더 높았는데, 저자들은 부분 유료화 게임에서 패턴을 배우기 더 쉬운 것으로 봅니다.</li>
+    <li><b>트랙 2:</b> 조건부 추론 생존 앙상블(트리 900개, 분할마다 특징 30개 무작위 선택). 테스트 1 RMSLE 1.0478, 테스트 2 0.8621.</li>
+    <li>검증: 학습 데이터 80/20, 반복 5겹 교차검증. 10% 리더보드에 과적합할 위험이 있어 교차검증을 더 믿었습니다.</li>
+    <li>모델마다 학습 4,000명 + 적용 6,000명까지 1시간이 안 걸렸습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · "학습 분포와 맞지 않는 특징은 버린다"는 분포 기반 선택(A)은, 패치 이후 데이터가 달라지는 상황에서 품질 검사 규칙으로도 응용할 수 있습니다. 특징값 목록은 Gold 레이어 설계에 바로 쓸 수 있습니다.</div>
+</section>
+
+<section class="src" id="b9">
+  <div class="head"><span class="idx">B-9</span><span class="type comp">보도자료</span><h3>YOKOZUNA data wins the two tracks of the IEEE Game Data Mining competition organized by NCSOFT</h3></div>
+  <dl><dt>발표</dt><dd>Silicon Studio (도쿄), 2017-09-06</dd><dt>원문</dt><dd><a href="https://www.siliconstudio.co.jp/en/news/pressreleases/2017/en1709yokozuna-data2/en1709yokozuna-data2.html">siliconstudio.co.jp</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <ul><li>미들웨어·게임 개발사 Silicon Studio의 데이터 과학 플랫폼 YOKOZUNA data가 뉴욕에서 열린 IEEE CIG 2017 게임 데이터 마이닝 대회에서 두 트랙(이탈 예측, 생존 분석)을 모두 우승했습니다.</li>
+    <li>대회는 엔씨소프트 MMORPG 블레이드 앤 소울의 실제 플레이어 데이터를 썼고, 세계의 학계 연구자와 기업이 참가했습니다.</li>
+    <li>YOKOZUNA data는 개별 플레이어 행동을 예측하는 머신러닝 엔진으로, 어떤 플레이어가 떠날지와 언제 떠날지를 함께 맞혔다고 소개합니다. 회사는 이번 우승을 모바일과 MMO 게임 모두에서 품질을 증명한 결과로 제시합니다.</li>
+    <li>보도자료에 정확도 같은 수치는 없습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 게임 로그 분석이 실제 상용 솔루션 사업이 된다는 근거입니다. 발표에서 "이 분야는 기업이 돈을 내고 사는 기술"이라고 말할 때 쓸 수 있습니다.</div>
+</section>
+
+<section class="src" id="b10">
+  <div class="head"><span class="idx">B-10</span><span class="type comp">대회 홈페이지</span><h3>GDMC 2017 공식 홈페이지</h3></div>
+  <dl><dt>운영</dt><dd>GIST CILab</dd><dt>원문</dt><dd><a href="https://cilab.gist.ac.kr/gdmc2017/">cilab.gist.ac.kr/gdmc2017</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <ul><li>한국 게임사 엔씨소프트가 기록한 MMORPG 게임 로그 데이터를 소개합니다. 이탈·잔존, 결제, 생존 기간 예측용입니다.</li>
+    <li>"데이터 다운로드 링크는 구글 그룹 채널(등록 페이지)로 제공된다"고 안내합니다. 홈페이지에는 직접 다운로드 링크가 없습니다.</li>
+    <li>공지에 언급된 파일: 로그 데이터, 데이터 설명서, 샘플 로그 데이터, 로그 스키마.</li>
+    <li>메뉴: 홈, 뉴스, 설명, 대회 트랙(트랙 1 이탈 예측, 트랙 2 생존 분석), 소개, 규칙, 등록 페이지.</li>
+    <li>홈페이지에는 이용 조건이 적혀 있지 않습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 구글 그룹 가입으로 지금도 데이터를 받을 수 있는지 1주차에 확인해 볼 만합니다. 받을 수 있다면 실제 상용 MMORPG 로그로 파이프라인을 돌려 볼 수 있습니다.</div>
+</section>
+
+<!-- ===================== BIGCONTEST ===================== -->
+<h2><span class="num">Ⅲ</span>엔씨소프트 빅콘테스트 (2018 블소 · 2019 리니지)</h2>
+
+<section class="src" id="b11">
+  <div class="head"><span class="idx">B-11</span><span class="type comp">출제자 후기</span><h3>2019 빅콘테스트 후기</h3></div>
+  <dl><dt>작성</dt><dd>엔씨소프트 DANBI, 2020-02-24</dd><dt>원문</dt><dd><a href="https://danbi-ncsoft.github.io/competition/2020/02/24/big-contest-2019-retrospect.html">danbi-ncsoft.github.io</a></dd><dt>언어</dt><dd>한국어 → 정리</dd></dl>
+  <h5>개요</h5>
+  <ul><li>엔씨소프트는 2017년부터 매년 외부 분석가 대상 대회를 열었고, 2019년에는 한국정보화진흥원·빅데이터포럼 주최 빅콘테스트에 공동 주관사로 참여했습니다. 주제는 "기대 이익을 고려한 고객 이탈 예측"입니다.</li>
+    <li>일정: 7월 17일 설명회 → 9월 10일까지 약 2개월 진행 → 1차 서류, 2차 본선 발표 → 11월 26일 시상식.</li></ul>
+  <h5>출제 의도</h5>
+  <ul><li><b>시간 변화에 강한 모델:</b> 게임은 업데이트, 밸런스 변경, 프로모션으로 행동 패턴이 자주 바뀝니다. 학습과 평가 데이터의 기간을 다르게 하고, 시기가 다른 평가 데이터를 2세트 준비했습니다.</li>
+    <li><b>기대 이익 평가:</b> 기대 이익 = 전환율 × (추가 생존 기간 × 일별 평균 결제 금액) − 인센티브. RMSE, AUC 같은 지표는 알고리즘의 일반 성능을 보기에는 좋지만, 구체적인 목표가 있는 예측을 평가하기에는 부적절하다는 입장입니다. 한 참가자가 "모두 이탈로 예측하면 점수가 더 높다"고 지적했는데, 출제팀은 이를 모델 자체의 문제로 봤습니다.</li>
+    <li><b>재현성:</b> 2018년에는 문서는 좋았지만 코드가 정리되지 않아 대부분 재현이 어려웠습니다. 분석 결과물은 "문서"가 아니라 "제품이나 서비스"가 되어야 하므로, 2019년에는 제출 형식을 엄격히 정하고 재현 여부를 심사에 반영했습니다.</li></ul>
+  <h5>참가와 심사</h5>
+  <ul><li>531팀 참가(2018년과 같음), 최종 제출 38팀(2018년 93팀에서 크게 감소). 문제가 어려워지고 제출 조건이 까다로워졌기 때문으로 봅니다.</li>
+    <li>1차: 예측 성능 + 재현성 + 발표 문서로 16팀 선정. 2차: 16팀 발표와 질의응답.</li>
+    <li>상위권은 학습 시기에 가까운 테스트 1에서, 하위권은 오히려 테스트 2에서 성능이 높았습니다.</li>
+    <li>재현성은 25점 만점에서 감점하는 방식이었고, 사전 안내 덕분에 대부분 사소한 수정만으로 재현됐습니다.</li></ul>
+  <h5>우수 접근법</h5>
+  <ul><li>여전히 XGBoost, GBM, 랜덤 포레스트가 가장 많았고 딥러닝이 늘었습니다. 대상 팀 "규복동"은 생존 기간과 결제 금액을 한 딥러닝 모델로 동시에 예측하고, <b>손실 함수를 기대 이익 최대화로 설계</b>해 예측 성능 최고점을 받았습니다.</li>
+    <li>"라이온킹" 팀은 생존 기간은 과소, 결제 금액은 과대 추정하는 게 유리하다고 보고 분위 회귀로 구현했습니다.</li>
+    <li>시간 강건성 시도: 직전 대비 변화율 파생 변수, 결제 금액이 안정적인 날짜만 학습, 주식 추세 지표(MACD, RSI 등) 적용 등. 개념 변화(concept drift)에 정면으로 대응한 팀은 드물었고, 출제팀도 여러 시차의 학습 데이터를 주지 않은 설계 한계를 인정했습니다.</li></ul>
+  <h5>출제자의 교훈</h5>
+  <ul><li><b>성능 경쟁의 한계:</b> 1~2% 차이가 순위를 바꾸지만 실서비스에서는 크게 중요하지 않습니다. 모델 수십 개를 조합한 팀보다 PC에서 15분이면 학습되는 가벼운 모델이 실전에 더 유용해 보였습니다. 100개 넘는 모델을 조합하고도 서비스에 적용하지 못한 넷플릭스 프라이즈 사례도 언급합니다.</li>
+    <li><b>데이터 오류:</b> 2017, 2018년에도 공개 후 중요한 오류가 발견돼 다시 추출했고, 이번에도 오류를 수정했습니다. 데이터 종류가 많고 전처리가 복잡해 오류를 찾기 어렵다며, <b>데이터 분석에도 단위 테스트나 정적 분석 같은 소프트웨어 공학 기법이 필요하다</b>고 했습니다.</li>
+    <li><b>발표:</b> 많은 팀이 기법 선택 이유를 "가장 성능이 좋았다"로만 설명해 본선에서 가장 많이 지적받았습니다. 스토리텔링에만 기대는 분석도 경계했습니다.</li>
+    <li>대회 운영에 약 8개월간 1~2명이 매달려야 해서 부담이 커서, <b>2020년에는 대회를 열지 않기로</b> 했습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 대형 게임사도 매번 데이터 오류로 다시 추출했다는 사실은 "정제 없이는 탐지도 없다"는 우리 주장의 가장 강력한 근거입니다. 재현성(Docker, 코드 정리)과 "왜 이 기법인가"를 설명하는 것도 처음부터 준비해야 합니다.</div>
+</section>
+
+<section class="src" id="b12">
+  <div class="head"><span class="idx">B-12</span><span class="type comp">대회 소개</span><h3>2019 빅콘테스트 (문제 소개)</h3></div>
+  <dl><dt>작성</dt><dd>엔씨소프트 DANBI, 2019-07-22</dd><dt>원문</dt><dd><a href="https://danbi-ncsoft.github.io/competition/2019/07/22/competition-2019-bigcontest.html">danbi-ncsoft.github.io</a></dd><dt>언어</dt><dd>한국어 → 정리</dd></dl>
+  <ul><li>빅콘테스트는 공공 데이터와 기업 실데이터를 제공하는 국내 최대 데이터 분석 대회로 7회째입니다. 매년 700여 팀, 2018년 1,100여 팀이 참가했고, 2019년 총상금은 역대 최고인 6,500만 원입니다.</li>
+    <li>2019년 7월 17일 신한카드 본사 강당 문제 설명회에 약 500명이 참석했습니다.</li>
+    <li><b>문제:</b> 리니지 28일간의 활동 데이터로 ① 앞으로의 생존 기간, ② 그때까지의 일별 평균 결제 금액을 예측합니다.</li>
+    <li><b>종속 변수:</b> <code>survival_time</code>(1~64일, 64는 잔존), <code>amount_spent</code>(일별 평균 결제 금액, 음수 불가)</li>
+    <li><b>독립 변수(테이블):</b> 기본 활동(캐릭터별 일별 플레이 시간, 경험치, 사망·부활 횟수 등), 거래(캐릭터 간 교환, 개인 상점), 전투(일별 PvP), 혈맹(소속 혈맹원의 전투 집계), 결제(지난 28일 일별 결제 금액)</li>
+    <li>대상은 약 8만 명이고, 개인 식별 정보는 마스킹·변환했습니다. 특정 유저군만 뽑지 않아 편향을 줄였습니다.</li>
+    <li>자체 평가는 평가 데이터의 20%만 쓰므로 과적합에 유의해야 하고, 자체 평가 점수는 심사에 반영되지 않습니다. 재현성 평가는 작년보다 강화됩니다.</li>
+    <li>팁: 이탈 여부(64 미만)와 과금 여부(0 초과)로 먼저 분류한 뒤 값을 예측하는 방법도 가능합니다. 데이터가 커서 중간 결과를 저장하며 작업하는 게 좋습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 활동, 거래, 전투, 혈맹, 결제 5개 테이블 구조는 Gold 레이어 집계 테이블 설계의 좋은 기준입니다. 결제 데이터는 우리 범위 밖이지만, 거래와 혈맹 테이블은 작업장 탐지에 그대로 쓰입니다.</div>
+</section>
+
+<section class="src" id="b13">
+  <div class="head"><span class="idx">B-13</span><span class="type comp">출제자 후기</span><h3>2018 빅콘테스트 후기</h3></div>
+  <dl><dt>작성</dt><dd>엔씨소프트 DANBI, 2019-02-19</dd><dt>원문</dt><dd><a href="https://danbi-ncsoft.github.io/competition/2019/02/19/big-contest-2018-retrospect.html">danbi-ncsoft.github.io</a></dd><dt>언어</dt><dd>한국어 → 정리</dd></dl>
+  <h5>출제 배경</h5>
+  <ul><li>2017년 IEEE CIG에서 처음 대회를 열었지만 경험과 홍보가 부족해 참가 규모가 작았습니다.</li>
+    <li>Kaggle에 문의하니 호스팅·컨설팅 최소 6만 달러, 총상금 최소 2만 달러가 필요해 포기하고 빅콘테스트에 주관사로 참여했습니다.</li>
+    <li>목적은 게임 데이터의 가치 홍보, 분석 인재 채용, 학계의 게임 데이터 연구 촉진입니다.</li></ul>
+  <h5>문제와 데이터</h5>
+  <ul><li>블레이드 앤 소울 유저의 지난 8주 활동으로 향후 12주 안의 이탈 시점을 4개 라벨로 예측합니다: Week(1주 이내), 1Month(2~4주), 2Month(4~7주), Retained(8주 이상 잔존).</li>
+    <li>군 입대, 시험 준비처럼 게임 밖 이유의 이탈은 데이터로 알 수 없다는 한계도 밝혔습니다.</li>
+    <li><b>게임 활동:</b> 주 단위 집계(계정당 최대 8행), 34개 필드. 접속 일수, 플레이 시간, NPC 사냥·퀘스트·아이템 경험치, 전투 시간, 재화 획득, 결투·전장 참여와 승리, 인던·레이드 입장과 완료, 채널별 채팅 횟수, 버프 아이템 사용, 제작 횟수 등.</li>
+    <li><b>소셜:</b> 파티(결성·해체 시각, 참여 계정), 문파(8주차 기준 문파원), 거래(누가 누구와 언제 무엇을 얼마나).</li>
+    <li><b>결제 이력:</b> 이탈과 결제의 상관이 높다는 선행 연구에 따라 제공했습니다.</li>
+    <li>학습 1만 명, 평가 4만 명. 라벨 비율을 같게 맞췄고, 표준화·익명화했습니다.</li></ul>
+  <h5>결과</h5>
+  <ul><li>531팀 참가, 93팀 최종 제출, 12팀 2차 심사. 평가는 4개 라벨의 정밀도·재현율 8개 값의 조화 평균(F1)입니다.</li>
+    <li>대부분 F1 0.70~0.75였습니다(출제팀 예상 0.6~0.7).</li>
+    <li>도구: Python 57팀, R 28팀. 알고리즘 27종 중 랜덤 포레스트(51), XGBoost(45), LightGBM(26), 로지스틱 회귀(15)가 많았습니다. 최고 팀과 최저 팀이 모두 랜덤 포레스트를 써서, 알고리즘보다는 가장 많이 선택된 모델이었다고 봐야 한다고 했습니다.</li>
+    <li>한 수상팀은 AWS에 대규모 자원을 투입해 많은 모델과 하이퍼파라미터 조합을 몇 시간 만에 시험했습니다.</li></ul>
+  <h5>우수 접근법과 아쉬움</h5>
+  <ul><li>주별 데이터를 계정당 한 행으로 펼치고 합계·평균·분산·최댓값·최솟값과 기울기·이동평균 추세를 만들었습니다. 요인 분석, 비선형 변환, k-means·계층·t-SNE 군집화도 썼습니다.</li>
+    <li>"Level 0" 팀은 유저를 <b>작업장 의심 집단</b>, 일반 고객, 튜토리얼만 하고 떠난 더미 집단으로 나눠 도메인 지식을 활용했습니다.</li>
+    <li>소셜 네트워크 분석을 시도한 팀이 없었던 점이 아쉽다고 했습니다. 온라인 게임 이탈은 게임 안 사회 관계와 관련이 깊기 때문입니다.</li>
+    <li>모델 해석 결과를 이탈 원인으로 단정하면 안 된다고 경고했습니다. 모델의 분류 기준과 이탈 원인은 다릅니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 실제 대회 참가팀이 "작업장 의심 집단"을 따로 분류했다는 것은 작업장이 실제 로그에서 눈에 띄는 집단이라는 방증입니다. 출제자가 아쉬워한 "소셜 네트워크 분석"을 우리가 2단계에서 정면으로 다루면 차별점이 됩니다.</div>
+</section>
+
+<section class="src" id="b14">
+  <div class="head"><span class="idx">B-14</span><span class="type comp">참가자 후기</span><h3>빅콘테스트 참가자 후기 3편</h3></div>
+  <dl><dt>원문</dt><dd><a href="https://tootouch.github.io/contest%20review/bigcontest2019/">TooTouch (2019)</a> · <a href="https://kjhov195.github.io/2019-11-04-Bigcontest_Lineage_project/">kjhov195 (2019)</a> · <a href="https://elapser.github.io/projects/2019/06/11/BigContest.html">혀노 (2018)</a></dd><dt>언어</dt><dd>한국어 → 정리</dd></dl>
+  <h5>TooTouch · 2019 리니지</h5>
+  <ul><li>데이터는 캐릭터 단위 5개 테이블(활동, 전투, 혈맹, 거래, 결제). 확인된 컬럼: <code>acc_id</code>, <code>char_id</code>, <code>playtime</code>, <code>fishing</code>, <code>combat_play_time</code>, <code>non_combat_playtime</code>. 학습 파일 <code>train_activity.csv</code> 등.</li>
+    <li><b>대회 중 데이터 수정:</b> fishing 변수 오류와 전투·비전투 시간 집계 오류가 공지됐는데, 공지를 늦게 확인해 그때까지의 결과를 모두 버리고 전처리를 다시 했습니다.</li>
+    <li>거래 데이터로 네트워크 분석을 시도했지만, 노드 특성 계산에 약 20시간이 걸려 재현성을 위해 뺐습니다.</li>
+    <li>모든 유저를 1일 이탈로 두고 결제액 5를 제출하면 약 6,000점으로 팀 최고점보다 높았다며 평가 방식에 의문을 제기했습니다.</li></ul>
+  <h5>kjhov195 · 2019 리니지</h5>
+  <ul><li>XGBoost, LightGBM, 랜덤 포레스트 기반 모델에 예측값 스케일링과 앙상블을 적용했습니다. 우수상(빅데이터포럼 의장상)을 받았습니다.</li>
+    <li>직접 게임을 플레이하며 도메인 지식을 익히고 출제 의도를 파악하려 한 것이 예선 통과에 중요했다고 회고합니다.</li></ul>
+  <h5>혀노 · 2018 블레이드 앤 소울 (최우수상, 531팀 중 2위)</h5>
+  <ul><li>테이블 크기: activity 324MB, payment 3.5MB, party 2.4GB, guild 4.7MB, trade 1.8GB.</li>
+    <li>8주차 접속자를 클래스별로 뽑은 수집 방식 때문에 7→8주 접속 비율이 인위적으로 튀는 편향을 고려해 전처리했습니다.</li>
+    <li>파생 변수: 길드·파티 활동, 친구 수, 친구들의 클래스 비율, 최초 접속 주차.</li>
+    <li>LIME으로 본 첫 번째 이탈 원인은 "동료의 존재 여부"였습니다. 이탈 유저는 길드·파티 관계가 적고 친구 중 열성 유저 비율도 낮았습니다.</li>
+    <li>회고: 수상은 성능보다 설계 철학과 원인 추정이 좌우했고, 심사위원은 대비가 뚜렷한 시각화를 선호하는 것으로 보였다고 합니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 대회 중에 데이터 오류 공지가 나와 참가자가 작업을 버린 실제 사례가 있습니다. 우리 대시보드의 "데이터 품질" 화면과 알림이 왜 필요한지 보여 주는 좋은 이야기입니다. 거래 네트워크 계산이 20시간 걸렸다는 경험은 그래프 분석 범위를 정할 때 참고해야 합니다.</div>
+</section>
+
+<!-- ===================== OTHER ===================== -->
+<h2><span class="num">Ⅳ</span>그 밖의 데이터와 대회</h2>
+
+<section class="src" id="b15">
+  <div class="head"><span class="idx">B-15</span><span class="type comp">대회</span><h3>2019 Data Science Bowl (PBS KIDS × Booz Allen × Kaggle)</h3></div>
+  <dl><dt>원문</dt><dd><a href="https://techlearning.com/news/pbs-kids-partners-with-booz-allen-kaggle-in-data-science-competition">Tech &amp; Learning 기사</a> · 대회 페이지 kaggle.com/c/data-science-bowl-2019</dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <ul><li>Booz Allen Hamilton과 Kaggle이 사회적 가치에 초점을 둔 5회 Data Science Bowl을 PBS KIDS와 함께 열었습니다.</li>
+    <li>역대 대회에는 5만 명 넘게 참가해 AI 알고리즘 11만 4천 개 이상을 제출했고, 폐암·심장병 탐지, 해양 건강, 의학 연구 같은 문제를 다뤘습니다.</li>
+    <li>2019년 주제는 유아 교육입니다. 참가자는 아이들이 앱에서 무엇을 알고 배우는지 판단하고, 교육 미디어 참여와 학습의 관계를 밝히는 알고리즘을 만듭니다. 생애 첫 5년이 언어·인지·사회·정서·조절 능력 발달에 결정적이라는 점을 배경으로 듭니다.</li>
+    <li>데이터: 미국 교육부 지원 CPB-PBS Ready to Learn 사업으로 개발된 PBS KIDS Measure Up! 앱의 익명 플레이 데이터입니다. 이름이나 위치 같은 개인 식별 정보는 수집하지 않으며, PRIVO가 아동 개인정보 요건 충족 여부를 검토했습니다.</li>
+    <li>상금 총 16만 달러, 2019년 10월 25일부터 90일간 진행. Kaggle 대회 페이지에서 등록하고 데이터를 받습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 기업과 공공기관이 실제 게임 앱 이벤트 로그를 공개 출제한 사례입니다. 이벤트 로그 형식을 참고하기 좋습니다.</div>
+</section>
+
+<section class="src" id="b16">
+  <div class="head"><span class="idx">B-16</span><span class="type data">데이터셋</span><h3>OpenDota Data Dump (2011.3 ~ 2016.3)</h3></div>
+  <dl><dt>발표</dt><dd>OpenDota 프로젝트 블로그, 2017-03-24</dd><dt>원문</dt><dd><a href="http://blog.opendota.com/2017/03/24/datadump2/">blog.opendota.com</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <ul><li>2015년 12월 약 350만 경기 덤프에 이은 두 번째 공개입니다. 2011년 3월부터 2016년 3월까지 공개 경기 1,191,768,403건을 담았습니다.</li>
+    <li>PostgreSQL 테이블 3개를 각각 토렌트로 제공합니다: <code>matches</code>(시작 시각, 클러스터, 게임 모드 등), <code>player_matches</code>(킬, 데스, 분당 골드 등 플레이어별), <code>match_skill</code>(Valve가 매긴 실력 구간).</li>
+    <li>전체는 Academic Torrents 토렌트로, 미리 보기용 4GB 샘플 CSV는 Google Cloud Storage 직접 링크로 받습니다.</li>
+    <li>대부분 Steam WebAPI에서 수집했고 수집에 몇 달이 걸립니다. 확장 데이터(리플레이 분석)가 있는 경기는 약 1천만 건뿐이고, 실력 구간 데이터는 2015년 5월 이후 약 1억 3,200만 건에만 있습니다.</li>
+    <li>라이선스는 명시되지 않았고, 흥미로운 결과를 알려 줄 것, 결과 발표 시 인용할 것, 가능한 한 오래 시딩할 것을 부탁합니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 수억 건 규모라 Spark 대용량 처리와 파티셔닝 성능 비교를 연습하기 좋습니다. "일부 경기에만 확장 데이터가 있다"는 결측 구조도 정제 사례가 됩니다.</div>
+</section>
+
+<section class="src" id="b17">
+  <div class="head"><span class="idx">B-17</span><span class="type data">API</span><h3>OSRS Wiki Real-time Prices API</h3></div>
+  <dl><dt>제공</dt><dd>Old School RuneScape Wiki × RuneLite</dd><dt>원문</dt><dd><a href="https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices">oldschool.runescape.wiki</a></dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <h5>엔드포인트 (기본 주소 <code>https://prices.runescape.wiki/api/v2/osrs</code>)</h5>
+  <div class="tbl"><table><tr><th>경로</th><th>내용</th><th>파라미터</th></tr>
+    <tr><td><code>/latest</code></td><td>아이템별 최신 고가·저가와 거래 시각(Unix). 한 번도 거래되지 않은 아이템은 빠집니다.</td><td><code>id</code> (선택)</td></tr>
+    <tr><td><code>/mapping</code></td><td>아이템 목록: 이름, ID, 설명, 회원 여부, 하이·로우 알케미 값, 거래소 구매 한도, 가치, 아이콘</td><td>없음</td></tr>
+    <tr><td><code>/5m</code></td><td>5분 평균 고가·저가와 거래량</td><td><code>timestamp</code> (선택)</td></tr>
+    <tr><td><code>/1h</code></td><td>1시간 평균 고가·저가와 거래량</td><td><code>timestamp</code> (선택)</td></tr>
+    <tr><td><code>/timeseries</code></td><td>한 아이템의 가격 이력</td><td><code>id</code>, <code>lookback</code> (6h·24h·7d·30d·6m·1y) 필수</td></tr></table></div>
+  <h5>이용 규칙</h5>
+  <ul><li>명시적인 호출 제한은 없지만, API 안정을 위협하면(초당 여러 건의 큰 요청을 계속 보내는 경우 등) 제한할 수 있습니다.</li>
+    <li>아이템마다 <code>id</code>로 반복 호출하지 말고, <code>id</code> 없이 한 번에 전체를 받으라고 합니다. 자원을 약 100배 덜 씁니다.</li>
+    <li><b>설명이 담긴 User-Agent가 유일한 필수 조건</b>입니다. python-requests, Python-urllib, Apache-HttpClient, RestSharp, Java, curl 기본값은 미리 차단돼 있습니다.</li>
+    <li>가격은 32비트 정수 범위를 넘을 수 있어 64비트 이상 타입을 써야 합니다.</li>
+    <li>실시간 파이프라인을 만들면 위키 디스코드의 #api-discussion 채널에 알려 변경 공지를 받으라고 권합니다.</li>
+    <li>위키 콘텐츠 라이선스는 CC BY-NC-SA 3.0입니다. API 데이터에 대한 별도 조건은 적혀 있지 않습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · Kafka 실시간 수집을 실데이터로 시연할 수 있는 가장 쉬운 소스입니다. "32비트 정수를 넘는 가격"은 우리 오염 목록의 "골드 오버플로"를 실제로 보여 주는 사례입니다.</div>
+</section>
+
+<section class="src" id="b18">
+  <div class="head"><span class="idx">B-18</span><span class="type comp">대회 데이터</span><h3>Kaggle PUBG Finish Placement Prediction</h3></div>
+  <dl><dt>원문</dt><dd><a href="https://github.com/rachit-shah/pubg-player-placement-prediction">GitHub 정리 저장소</a> · 대회 페이지 kaggle.com/c/pubg-finish-placement-prediction</dd><dt>언어</dt><dd>영어 → 번역</dd></dl>
+  <ul><li>API로 수집한 약 6만 5천 경기, 28개 특징으로 구성된 데이터입니다.</li>
+    <li>목표는 플레이어의 <code>winPlacePerc</code>(0~1)를 예측하는 회귀 문제입니다. 계산식은 (maxPlace − winPlace) / (maxPlace − 1)로, 100명 솔로 경기에서 80등이면 약 0.204입니다.</li>
+    <li>저장소 팀은 탐색적 분석과 특징 설계(4명 넘는 팀 크기 처리 포함)를 한 뒤 학습 데이터를 70/30으로 나눴고, LightGBM 회귀를 주력으로 신경망, 다중 선형 회귀, 의사결정나무 등 10개 모델과 비교했습니다.</li>
+    <li>저장소 페이지에는 모델별 수치가 없고 별도 보고서(PDF)에 있습니다.</li></ul>
+  <div class="so"><b>우리 프로젝트에 주는 시사점</b> · 치터 탐지 연구에 자주 쓰이는 공개 데이터입니다. "4명 넘는 팀"처럼 규칙에 어긋나는 레코드가 섞여 있어 정제 연습 재료로도 쓸 수 있습니다.</div>
+</section>
+
+<a class="back noprint" href="#">↑ 맨 위로</a>
+</main>
+
+<footer class="sitefoot">Log Watchdog · AI Ready 데이터 엔지니어링 캠프 팀 프로젝트 · 기획 v0.2 · 2026.10</footer>
+</body></html>

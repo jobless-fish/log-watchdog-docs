@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log Watchdog 팀 기획서</title>
+<meta name="description" content="MMORPG 로그 정제와 봇·작업장 탐지 팀 프로젝트 문서">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"><link rel="stylesheet" href="assets/site.css"></head>
+<body>
+<nav class="topnav"><div class="in"><a class="brand" href="index.html">Log <em>Watchdog</em></a><a href="index.html">홈</a><a href="plan.html" class="on">1차 기획서</a><a href="request.html">2차 요청서</a><a href="appendix-a.html">별첨 A</a><a href="appendix-b.html">별첨 B</a></div></nav>
+<main class="doc">
+<header class="doc-hero">
+  <span class="label">1차 · 팀 기획서</span>
+  <h1>로그 워치독 <span style="color:var(--acc)">Log Watchdog</span><br>받은 데이터로 3일 안에 만드는 것</h1>
+  <p>다른 팀이 만들어 줄 가상 MMORPG 로그를 받아서 <b>정제 → 탐지 → 시각화</b>까지 끝내는 3명 · 3일 프로젝트 기획서입니다. 데이터 팀에 보낼 요청서는 <a href="request.html">2차 · 데이터 요청서</a>에 따로 있습니다.</p>
+  <div class="meta">기획 v0.2 · 2026.10 · 3인 · 작업 기간 3일 (데이터 수령 후)</div>
+  <div class="downloads noprint"><a class="btn ghost" href="downloads/plan.pdf">PDF로 받기</a></div>
+</header>
+
+<h2><span class="num">0</span>프로젝트 진행 방식</h2>
+<p>우리 팀은 데이터를 직접 만들지 않습니다. 요청서를 보내면 다른 팀이 오염이 섞인 가상 로그를 만들어 주고, 우리는 그 데이터를 받아 3일 안에 결과물을 완성합니다. 데이터 팀은 정답지(어떤 계정이 봇인지, 어디에 오염을 넣었는지)를 따로 보관하고, 우리 결과를 채점하는 데 씁니다.</p>
+<div class="figure"><svg viewBox="0 0 715 250" class="diagram" role="img" aria-label="두 팀의 진행 흐름"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs><rect x="6" y="8" width="160" height="232" rx="14" class="lane us"/><text x="86" y="30" class="lanet">우리 팀</text><rect x="186" y="8" width="200" height="232" rx="14" class="lane them"/><text x="286" y="30" class="lanet">데이터 팀</text><rect x="406" y="8" width="303" height="232" rx="14" class="lane us"/><text x="557" y="30" class="lanet">우리 팀 · 3일</text><g class="node "><rect x="20" y="50" width="132" height="50" rx="10"/><text x="86.0" y="72.0">1차 기획서</text><text x="86.0" y="89.0" class="sub">무엇을 만들까</text></g><g class="node src"><rect x="20" y="130" width="132" height="50" rx="10"/><text x="86.0" y="152.0">2차 요청서</text><text x="86.0" y="169.0" class="sub">어떤 데이터가 필요한가</text></g><g class="node "><rect x="206" y="50" width="160" height="50" rx="10"/><text x="286.0" y="72.0">생성기 제작</text><text x="286.0" y="89.0" class="sub">세계 설정 · 유저 · 오염</text></g><g class="node "><rect x="206" y="130" width="160" height="50" rx="10"/><text x="286.0" y="152.0">샘플 → 본 데이터</text><text x="286.0" y="169.0" class="sub">1일치 → 28일치</text></g><g class="node opt"><rect x="206" y="190" width="160" height="42" rx="10"/><text x="286.0" y="208.0">정답지 보관</text><text x="286.0" y="225.0" class="sub">봇 계정 · 오염 위치</text></g><g class="node "><rect x="420" y="50" width="130" height="50" rx="10"/><text x="485.0" y="72.0">1일차</text><text x="485.0" y="89.0" class="sub">적재 · 정제</text></g><g class="node bronze"><rect x="565" y="50" width="130" height="50" rx="10"/><text x="630.0" y="72.0">2일차</text><text x="630.0" y="89.0" class="sub">탐지 · 결과 제출</text></g><g class="node gold"><rect x="420" y="140" width="130" height="50" rx="10"/><text x="485.0" y="162.0">정답지 받기</text><text x="485.0" y="179.0" class="sub">채점 · 비교</text></g><g class="node out"><rect x="565" y="140" width="130" height="50" rx="10"/><text x="630.0" y="162.0">3일차</text><text x="630.0" y="179.0" class="sub">대시보드 · 발표</text></g><path d="M152,155 C175,155 175,75 204,75" class="edge" marker-end="url(#ar)"/><path d="M286,100 V128" class="edge" marker-end="url(#ar)"/><path d="M366,155 C392,155 392,75 418,75" class="edge" marker-end="url(#ar)"/><path d="M550,75 H563" class="edge" marker-end="url(#ar)"/><path d="M630,100 C630,120 485,118 485,138" class="edge" marker-end="url(#ar)"/><path d="M366,211 C395,211 395,170 418,170" class="edge dash" marker-end="url(#ar)"/><path d="M550,165 H563" class="edge" marker-end="url(#ar)"/><path d="M86,100 V128" class="edge" marker-end="url(#ar)"/></svg></div>
+
+<h2><span class="num">1</span>무엇을 만드는가</h2>
+<p class="lead">MMORPG "○○온라인"의 유저 로그를 정제하고, 매크로 봇 · 작업장 · 현금 거래(RMT) 계정을 찾아내는 데이터 파이프라인과 운영 대시보드입니다.</p>
+<div class="callout">
+  <div class="big">정제 없이는 <em>탐지</em>도 없다</div>
+  <p>중복 이벤트 하나 때문에 정상 유저가 "초당 사냥 10회"로 집계돼 봇으로 오탐됩니다. 엔씨소프트도 대회 데이터를 낼 때마다 오류가 발견돼 다시 추출했습니다(별첨 B-11). 이 프로젝트는 정제 전후로 탐지 결과가 어떻게 달라지는지를 숫자로 보여 줍니다.</p>
+</div>
+<h3>최종 산출물 5가지</h3>
+<div class="cards c3">
+  <div class="card"><div class="n">01</div><h4>메달리온 파이프라인</h4><p>받은 파일을 Bronze → Silver → Gold로 적재·정제하는 코드. 명령 한 줄로 처음부터 다시 돌릴 수 있어야 합니다.</p></div>
+  <div class="card"><div class="n">02</div><h4>데이터 품질 리포트</h4><p>오염 유형별로 몇 건을 찾았고 어떻게 처리했는지 정리한 리포트. 데이터 팀 정답지와 비교한 탐지율도 포함합니다.</p></div>
+  <div class="card red"><div class="n">03</div><h4>봇 · 작업장 탐지 결과</h4><p>계정별 위험 점수와 탐지 사유. 정답지 대비 정밀도와 재현율, 정제 전후 오탐률 비교.</p></div>
+  <div class="card"><div class="n">04</div><h4>운영 대시보드</h4><p>Streamlit 웹 대시보드 5개 화면: 현황, 데이터 품질, 의심 계정, 계정 타임라인, 거래 네트워크.</p></div>
+  <div class="card"><div class="n">05</div><h4>발표 자료 · README</h4><p>문제 정의, 구조, 결과 수치, 시연. GitHub 저장소 README에 실행 방법과 데이터 출처를 적습니다.</p></div>
+  <div class="card teal"><div class="n">완료 기준</div><h4>3일차 저녁까지</h4><p>새 PC에서 README대로 실행하면 대시보드까지 뜨는 상태. 시연 영상 백업 포함.</p></div>
+</div>
+
+<h2><span class="num">2</span>구조</h2>
+<div class="figure"><svg viewBox="0 0 715 300" class="diagram" role="img" aria-label="파이프라인 구조"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs><g class="node src"><rect x="10" y="112" width="112" height="60" rx="10"/><text x="66.0" y="139.0">받은 데이터</text><text x="66.0" y="156.0" class="sub">CSV.gz · 마스터</text></g><g class="node bronze"><rect x="275" y="30" width="130" height="60" rx="10"/><text x="340.0" y="57.0">Bronze</text><text x="340.0" y="74.0" class="sub">원본 그대로 적재</text></g><g class="node silver"><rect x="275" y="112" width="130" height="60" rx="10"/><text x="340.0" y="139.0">Silver</text><text x="340.0" y="156.0" class="sub">오염 9종 정제·플래그</text></g><g class="node gold"><rect x="275" y="194" width="130" height="60" rx="10"/><text x="340.0" y="221.0">Gold</text><text x="340.0" y="238.0" class="sub">특징값·네트워크</text></g><g class="node "><rect x="445" y="112" width="110" height="60" rx="10"/><text x="500.0" y="139.0">탐지</text><text x="500.0" y="156.0" class="sub">규칙·그래프·(ML)</text></g><g class="node out"><rect x="588" y="64" width="112" height="56" rx="10"/><text x="644.0" y="89.0">대시보드</text><text x="644.0" y="106.0" class="sub">Streamlit 5화면</text></g><g class="node out"><rect x="588" y="164" width="112" height="56" rx="10"/><text x="644.0" y="189.0">품질·채점</text><text x="644.0" y="206.0" class="sub">리포트·정답 비교</text></g><g class="node opt"><rect x="140" y="214" width="112" height="46" rx="10"/><text x="196.0" y="234.0">Kafka 재생</text><text x="196.0" y="251.0" class="sub">선택 · 실시간 시연</text></g><path d="M122,142 C200,142 200,60 273,60" class="edge" marker-end="url(#ar)"/><path d="M340,90 V110" class="edge" marker-end="url(#ar)"/><path d="M340,172 V192" class="edge" marker-end="url(#ar)"/><path d="M405,224 C425,224 425,142 443,142" class="edge" marker-end="url(#ar)"/><path d="M555,135 C572,135 570,92 586,92" class="edge" marker-end="url(#ar)"/><path d="M555,150 C572,150 570,192 586,192" class="edge" marker-end="url(#ar)"/><path d="M66,172 V237 H138" class="edge dash" marker-end="url(#ar)"/><rect x="265" y="18" width="150" height="248" rx="14" class="frame"/><text x="340" y="284" class="cap">DuckDB · SQL · Polars</text><rect x="4" y="6" width="706" height="290" rx="16" class="outer"/><text x="20" y="30" class="cap left">make all 한 줄로 전체 실행</text></svg></div>
+<div class="layers">
+  <div class="layer b"><h4>Bronze · 원본 보존</h4><ul><li>받은 Parquet/CSV를 그대로 DuckDB에 적재</li><li>파일명, 적재 시각, 원본 행 번호 추가</li><li>절대 수정하지 않음 (재처리 기준점)</li></ul></div>
+  <div class="layer s"><h4>Silver · 정제</h4><ul><li>9가지 오염 처리 (아래 표)</li><li>세션 재구성, 타입 · 시간대 통일</li><li>행을 지우지 않고 품질 플래그 컬럼으로 표시</li><li>형식이 깨진 행만 격리 테이블로</li></ul></div>
+  <div class="layer g"><h4>Gold · 활용</h4><ul><li>계정 · 일 단위 특징값 테이블</li><li>거래 네트워크 엣지 테이블</li><li>탐지 결과 · 위험 점수</li><li>품질 스코어카드</li></ul></div>
+</div>
+
+<h3>처리할 오염 9가지</h3>
+<div class="tbl"><table>
+  <tr><th style="width:22%">오염</th><th style="width:28%">현실에서의 원인</th><th>Silver 처리</th><th style="width:18%">검증 방법</th></tr>
+  <tr><td>중복 이벤트</td><td>네트워크 재전송</td><td>event_id 기준 중복 제거</td><td>중복 건수 = 정답지</td></tr>
+  <tr><td>시간 역전</td><td>클라이언트 시계 오차</td><td>server_ts 기준 재정렬, 차이가 큰 행 플래그</td><td>역전 건수</td></tr>
+  <tr><td>타임존 혼재</td><td>서버별 로컬 시각 기록</td><td>server_id별 오프셋으로 UTC 통일</td><td>서버별 시간 분포</td></tr>
+  <tr><td>logout 누락</td><td>강제 종료 · 크래시</td><td>30분 비활동이면 세션 종료로 간주</td><td>세션 길이 분포</td></tr>
+  <tr><td>스키마 버전 혼재</td><td>패치로 필드명 변경</td><td>client_ver별 컬럼 매핑</td><td>패치 전후 건수</td></tr>
+  <tr><td>아이템 ID 변경</td><td>패치로 아이템 개편</td><td>매핑 테이블로 신규 ID 통일</td><td>매핑 실패 0건</td></tr>
+  <tr><td>골드 음수 · 오버플로</td><td>서버 버그</td><td>범위 밖 값 플래그 후 집계 제외</td><td>플래그 건수</td></tr>
+  <tr><td>GM · 테스트 계정</td><td>운영 계정 혼입</td><td>계정 유형으로 분석 대상에서 제외</td><td>제외 계정 수</td></tr>
+  <tr><td>좌표 이탈</td><td>맵 밖 좌표, 텔레포트 버그</td><td>맵 경계 검증 후 플래그</td><td>이탈 건수</td></tr>
+</table></div>
+
+<h2><span class="num">3</span>탐지 로직</h2>
+<div class="steps" style="margin-top:22px">
+  <div class="step"><span class="no">필수 · 규칙</span><h4>명확한 신호</h4><ul><li><b>매크로:</b> 행동 간격 편차가 아주 작음, 하루 20시간 이상 접속, 같은 좌표 반복</li><li><b>작업장:</b> 같은 IP · 기기의 여러 계정, 비슷한 시각에 만든 계정의 같은 동선</li><li><b>RMT:</b> 여러 계정의 골드가 한 계정으로 집중, 시세와 동떨어진 거래</li></ul></div>
+  <div class="step"><span class="no">필수 · 그래프</span><h4>관계로 찾기</h4><ul><li>거래를 계정 간 네트워크로 구성</li><li>골드가 모이는 허브 계정 탐지</li><li>IP · 기기로 묶이는 계정 군집</li></ul></div>
+  <div class="step"><span class="no">선택 · ML</span><h4>시간이 남으면</h4><ul><li>Isolation Forest로 이상치 점수</li><li>정답지로 규칙 기반과 성능 비교</li><li>헤비 유저 오탐이 줄어드는지 확인</li></ul></div>
+</div>
+<h3>핵심 특징값 예시: 행동 간격</h3>
+<div class="figure"><svg viewBox="0 0 640 210" class="chart" role="img" aria-label="사람과 봇의 행동 간격 비교 예시"><line x1="44" x2="628" y1="180.0" y2="180.0" class="grid"/><text x="36" y="184.0" class="ax" text-anchor="end">0s</text><line x1="44" x2="628" y1="125.3" y2="125.3" class="grid"/><text x="36" y="129.3" class="ax" text-anchor="end">2s</text><line x1="44" x2="628" y1="70.7" y2="70.7" class="grid"/><text x="36" y="74.7" class="ax" text-anchor="end">4s</text><line x1="44" x2="628" y1="16.0" y2="16.0" class="grid"/><text x="36" y="20.0" class="ax" text-anchor="end">6s</text>
+<polyline points="44.0,138.1 53.9,95.4 63.8,80.5 73.7,88.6 83.6,104.0 93.5,110.1 103.4,109.8 113.3,97.1 123.2,119.7 133.1,106.1 143.0,97.2 152.9,114.4 162.8,91.4 172.7,97.4 182.6,53.9 192.5,104.6 202.4,127.3 212.3,125.6 222.2,114.8 232.1,86.6 242.0,124.5 251.9,102.8 261.8,59.2 271.7,169.1 281.6,148.2 291.5,107.1 301.4,102.4 311.3,107.2 321.2,127.4 331.1,94.7 340.9,105.9 350.8,130.1 360.7,41.3 370.6,103.7 380.5,131.1 390.4,117.4 400.3,121.2 410.2,116.3 420.1,169.1 430.0,129.0 439.9,84.1 449.8,149.5 459.7,116.4 469.6,85.7 479.5,88.7 489.4,69.6 499.3,165.6 509.2,125.0 519.1,124.7 529.0,95.7 538.9,81.6 548.8,169.1 558.7,81.7 568.6,157.9 578.5,93.9 588.4,159.3 598.3,109.1 608.2,78.5 618.1,118.9 628.0,108.7" class="l-human"/>
+<polyline points="44.0,140.3 53.9,139.6 63.8,139.7 73.7,138.5 83.6,137.8 93.5,139.1 103.4,137.8 113.3,137.7 123.2,137.8 133.1,139.4 143.0,139.8 152.9,139.7 162.8,139.8 172.7,139.8 182.6,138.7 192.5,137.9 202.4,138.1 212.3,139.1 222.2,138.6 232.1,138.2 242.0,140.1 251.9,138.6 261.8,137.9 271.7,138.2 281.6,138.3 291.5,139.1 301.4,139.9 311.3,138.2 321.2,139.5 331.1,138.2 340.9,137.7 350.8,139.3 360.7,139.3 370.6,137.8 380.5,138.4 390.4,139.9 400.3,140.0 410.2,140.0 420.1,137.9 430.0,138.2 439.9,140.0 449.8,138.1 459.7,137.7 469.6,138.6 479.5,139.4 489.4,138.9 499.3,140.0 509.2,140.3 519.1,137.7 529.0,138.6 538.9,138.9 548.8,137.8 558.7,139.2 568.6,138.0 578.5,138.1 588.4,139.8 598.3,139.7 608.2,139.6 618.1,139.7 628.0,138.8" class="l-bot"/>
+<text x="44" y="202" class="ax">행동 순서 →</text>
+<g transform="translate(440,18)"><rect width="12" height="4" y="4" class="sw-human"/><text x="18" y="10" class="lg">일반 유저: 들쭉날쭉</text>
+<rect width="12" height="4" y="22" class="sw-bot"/><text x="18" y="28" class="lg">매크로 봇: 거의 일정</text></g></svg><div class="cap">예시 그림 · 사람은 행동 간격이 불규칙하지만 매크로는 거의 일정합니다. 다만 오래 플레이하는 헤비 유저는 봇과 헷갈리기 쉬워서, 실제 연구에서도 헤비 유저를 따로 나누자 오탐이 881건에서 327건으로 줄었습니다(별첨 B-4).</div></div>
+
+<h2><span class="num">4</span>대시보드</h2>
+<p>Streamlit 한 앱에 화면 5개를 둡니다. 정제 전 · 후를 토글로 바꿔 볼 수 있게 만들어서, "정제가 탐지를 바꾼다"는 메시지를 화면에서 바로 보여 줍니다.</p>
+<div class="wire">
+  <div class="panel w2"><span class="no">01</span><div class="t">현황</div><div class="d">일별 활성 계정 · 이벤트 수 · 서버별 분포</div>
+    <div class="mini"><div class="bars"><i style="height:40%"></i><i style="height:55%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:62%"></i><i style="height:85%"></i><i style="height:78%"></i><i style="height:92%"></i></div></div></div>
+  <div class="panel w2"><span class="no">02</span><div class="t">데이터 품질</div><div class="d">오염 유형별 건수 · 정답지 대비 탐지율</div>
+    <div class="mini"><div class="bars"><i class="r" style="height:90%"></i><i style="height:30%"></i><i class="r" style="height:60%"></i><i style="height:18%"></i><i class="r" style="height:45%"></i><i style="height:12%"></i></div></div></div>
+  <div class="panel w2 h2"><span class="no">03</span><div class="t">의심 계정</div><div class="d">위험 점수와 탐지 사유</div>
+    <div class="rank"><div><span>A-10482</span><b>0.97 매크로</b></div><div><span>A-88213</span><b>0.94 RMT</b></div><div><span>A-31007</span><b>0.91 작업장</b></div><div><span>A-55120</span><b>0.88 매크로</b></div><div><span>A-70931</span><b>0.83 작업장</b></div><div><span>A-12876</span><span>0.61 관찰</span></div></div></div>
+  <div class="panel w4"><span class="no">04</span><div class="t">계정 타임라인</div><div class="d">하루 24시간 행동 패턴 — 사람과 봇의 차이</div>
+    <div class="mini"><svg viewBox="0 0 400 40" preserveAspectRatio="none" style="width:100%;height:100%"><g fill="#0fa596"><rect x="20" y="4" width="30" height="12" rx="2"/><rect x="140" y="4" width="18" height="12" rx="2"/><rect x="250" y="4" width="70" height="12" rx="2"/></g><rect x="0" y="24" width="400" height="12" rx="2" fill="#ff4d5e"/></svg></div></div>
+  <div class="panel w6" style="grid-column:span 6"><span class="no">05</span><div class="t">거래 네트워크</div><div class="d">작업장 골드 흐름 — 허브 계정 강조</div>
+    <div class="mini"><svg viewBox="0 0 400 40" style="width:100%;height:100%"><g stroke="#7a8094" stroke-width="1"><line x1="200" y1="20" x2="80" y2="6"/><line x1="200" y1="20" x2="60" y2="30"/><line x1="200" y1="20" x2="120" y2="36"/><line x1="200" y1="20" x2="300" y2="6"/><line x1="200" y1="20" x2="340" y2="30"/><line x1="200" y1="20" x2="260" y2="37"/></g><g fill="#454b5c"><circle cx="80" cy="6" r="3"/><circle cx="60" cy="30" r="3"/><circle cx="120" cy="36" r="3"/><circle cx="300" cy="6" r="3"/><circle cx="340" cy="30" r="3"/><circle cx="260" cy="37" r="3"/></g><circle cx="200" cy="20" r="7" fill="#ff4d5e"/></svg></div></div>
+</div>
+
+<h2><span class="num">5</span>기술 스택</h2>
+<p>3일 안에 끝내야 하므로 <b>서버를 띄우지 않고 노트북 한 대에서 도는 구성</b>을 기본으로 합니다. Kafka와 Airflow는 시간이 남을 때만 붙이는 확장 항목입니다.</p>
+<div class="tbl"><table>
+  <tr><th style="width:16%">영역</th><th style="width:28%">도구</th><th>고른 이유</th><th style="width:9%">구분</th></tr>
+  <tr><td>언어 · 환경</td><td>Python 3.11, uv(또는 venv + requirements.txt)</td><td>세 명이 같은 환경을 몇 분 안에 맞출 수 있음</td><td><span class="pill main">필수</span></td></tr>
+  <tr><td>저장 · 처리</td><td>DuckDB, Parquet</td><td>설치 없이 파일 하나로 쓰는 분석용 DB. 수천만 행도 노트북에서 SQL로 빠르게 처리</td><td><span class="pill main">필수</span></td></tr>
+  <tr><td>데이터 가공</td><td>Polars (또는 pandas)</td><td>대용량에서 pandas보다 빠르고 메모리를 적게 씀</td><td><span class="pill main">필수</span></td></tr>
+  <tr><td>품질 검사</td><td>SQL 규칙 파일 + pytest</td><td>규칙을 파일로 관리하고 자동 실행. 별첨 B-11의 "데이터에도 단위 테스트" 교훈을 그대로 적용</td><td><span class="pill main">필수</span></td></tr>
+  <tr><td>네트워크 분석</td><td>NetworkX</td><td>거래 그래프의 허브 · 군집 계산</td><td><span class="pill main">필수</span></td></tr>
+  <tr><td>대시보드</td><td>Streamlit, Plotly, pyvis</td><td>파이썬만으로 웹 대시보드를 하루 안에 만들 수 있음</td><td><span class="pill main">필수</span></td></tr>
+  <tr><td>협업</td><td>GitHub (저장소 · Projects 칸반 · PR), Discord</td><td>작업 현황과 코드 리뷰를 한곳에서</td><td><span class="pill main">필수</span></td></tr>
+  <tr><td>실행 자동화</td><td>Makefile (<code>make all</code>)</td><td>적재부터 대시보드까지 명령 한 줄. 재현성 확보</td><td><span class="pill main">필수</span></td></tr>
+  <tr><td>ML</td><td>scikit-learn (Isolation Forest)</td><td>규칙 기반과 비교할 기준 모델</td><td><span class="pill">선택</span></td></tr>
+  <tr><td>스트리밍 시연</td><td>Kafka (Docker) + 재생 스크립트</td><td>받은 로그를 시간순으로 흘려보내 실시간처럼 시연</td><td><span class="pill">선택</span></td></tr>
+  <tr><td>오케스트레이션</td><td>Airflow 또는 Prefect</td><td>파이프라인을 DAG로 보여 주기</td><td><span class="pill">선택</span></td></tr>
+  <tr><td>배포</td><td>Docker Compose, Streamlit Community Cloud</td><td>발표 때 링크로 시연</td><td><span class="pill">선택</span></td></tr>
+</table></div>
+
+<h2><span class="num">6</span>업무 방식</h2>
+<div class="cards c2">
+  <div class="card"><h4>회의 리듬</h4><p>매일 오전 10분 스탠드업(어제 한 일 · 오늘 할 일 · 막힌 것), 오후 늦게 15분 통합 점검. Discord 음성 채널을 작업 시간 내내 열어 둡니다.</p></div>
+  <div class="card"><h4>작업 관리</h4><p>GitHub Projects 칸반(할 일 → 진행 중 → 리뷰 → 완료). 카드 하나는 반나절 안에 끝나는 크기로 쪼갭니다.</p></div>
+  <div class="card"><h4>브랜치 · 리뷰</h4><p><code>main</code>은 항상 실행되는 상태로 유지. 기능별 브랜치 → PR → 다른 한 명이 확인 후 병합. 커밋 메시지는 <code>feat:</code> · <code>fix:</code> · <code>docs:</code> 형식으로 씁니다.</p></div>
+  <div class="card"><h4>완료 기준</h4><p>코드가 <code>make all</code>에 연결돼 있고, 품질 검사를 통과하고, README에 한 줄 이상 설명이 있으면 "완료"입니다.</p></div>
+  <div class="card"><h4>데이터 계약</h4><p>2차 요청서의 스키마가 곧 계약입니다. 받은 데이터가 스키마와 다르면 우리 코드를 고치기 전에 데이터 팀에 먼저 묻습니다. 질문과 답은 공유 문서에 기록합니다.</p></div>
+  <div class="card"><h4>막히면 30분 규칙</h4><p>30분 넘게 막히면 바로 공유합니다. 3일 프로젝트에서는 혼자 고민하는 시간이 가장 비쌉니다.</p></div>
+</div>
+<h3>저장소 구조</h3>
+<pre class="code"><code>log-watchdog/
+├─ data/            # 받은 원본 (Git에 올리지 않음, .gitignore)
+├─ pipeline/
+│  ├─ bronze.py     # 원본 적재
+│  ├─ silver.sql    # 정제 · 플래그
+│  └─ gold.sql      # 특징값 · 네트워크 · 집계
+├─ quality/
+│  ├─ rules.sql     # 품질 규칙
+│  └─ test_rules.py # pytest
+├─ detect/
+│  ├─ rules.py      # 규칙 기반 탐지
+│  ├─ graph.py      # 네트워크 분석
+│  └─ ml.py         # (선택) Isolation Forest
+├─ app/dashboard.py # Streamlit
+├─ eval/score.py    # 정답지 대비 채점
+├─ docs/            # 발표 자료 · 리포트
+├─ Makefile
+└─ README.md</code></pre>
+
+<h2><span class="num">7</span>3인 업무 분담</h2>
+<div class="tbl"><table>
+  <tr><th style="width:18%">역할</th><th>주 담당</th><th style="width:30%">함께 하는 일</th></tr>
+  <tr><td>A · 데이터 엔지니어</td><td>환경 세팅, Bronze 적재, Silver 정제 9종, 품질 규칙과 테스트, Makefile, (선택) Kafka 재생</td><td>스키마 확인과 데이터 팀 소통 창구</td></tr>
+  <tr><td>B · 탐지 · 분석</td><td>Gold 특징값, 규칙 기반 탐지, 거래 네트워크 분석, 정답지 채점 스크립트, (선택) ML</td><td>정제 전후 오탐률 비교 실험</td></tr>
+  <tr><td>C · 시각화 · PM</td><td>Streamlit 대시보드 5개 화면, 품질 리포트, 발표 자료, README, 일정 관리와 스탠드업 진행</td><td>시연 시나리오와 리허설</td></tr>
+</table></div>
+<p class="note">데이터가 오기 전(0일차)에 C가 샘플 데이터로 대시보드 틀을 먼저 만들면, 2일차에 A · B의 결과를 바로 붙일 수 있습니다.</p>
+
+<h2><span class="num">8</span>일정</h2>
+<svg viewBox="0 0 674 340" class="gantt" role="img" aria-label="3일 일정"><rect x="270" y="0" width="100" height="340" class="gz2"/><text x="320.0" y="20" class="gh">0일차</text><rect x="370" y="0" width="100" height="340" class="gz"/><text x="420.0" y="20" class="gh">1일차</text><rect x="470" y="0" width="100" height="340" class="gz2"/><text x="520.0" y="20" class="gh">2일차</text><rect x="570" y="0" width="100" height="340" class="gz"/><text x="620.0" y="20" class="gh">3일차</text><text x="0" y="53" class="gl">A · 환경 세팅, 샘플로 뼈대</text><rect x="274" y="40" width="92" height="18" rx="5" class="bar-a"/><text x="0" y="83" class="gl">C · 대시보드 틀, 발표 구성</text><rect x="274" y="70" width="92" height="18" rx="5" class="bar-d"/><text x="0" y="113" class="gl">A · Bronze 적재, Silver 정제 9종</text><rect x="374" y="100" width="92" height="18" rx="5" class="bar-a"/><text x="0" y="143" class="gl">B · 특징값 설계, 탐지 규칙 초안</text><rect x="374" y="130" width="92" height="18" rx="5" class="bar-c"/><text x="0" y="173" class="gl">A · 품질 규칙·테스트, Makefile</text><rect x="474" y="160" width="92" height="18" rx="5" class="bar-a"/><text x="0" y="203" class="gl">B · Gold, 탐지·네트워크, 결과 제출</text><rect x="474" y="190" width="92" height="18" rx="5" class="bar-c"/><text x="0" y="233" class="gl">C · 대시보드에 실데이터 연결</text><rect x="374" y="220" width="192" height="18" rx="5" class="bar-d"/><text x="0" y="263" class="gl">B · 정답지 채점, (선택) ML</text><rect x="574" y="250" width="92" height="18" rx="5" class="bar-c"/><text x="0" y="293" class="gl">A · (선택) Kafka 재생 시연</text><rect x="574" y="280" width="92" height="18" rx="5" class="bar-a"/><text x="0" y="323" class="gl">전원 · 발표 자료·README·리허설</text><rect x="574" y="310" width="92" height="18" rx="5" class="bar-b"/></svg>
+<div class="legend"><span><i style="background:var(--violet)"></i>A 데이터 엔지니어</span><span><i style="background:var(--acc)"></i>B 탐지 · 분석</span><span><i style="background:var(--teal)"></i>C 시각화 · PM</span><span><i style="background:var(--silver)"></i>전원</span></div>
+<div class="tbl" style="margin-top:14px"><table>
+  <tr><th style="width:12%">날짜</th><th>목표</th><th style="width:34%">끝났다는 기준</th></tr>
+  <tr><td>0일차 (데이터 받기 전)</td><td>요청서 전달, 저장소 · 환경 세팅, 샘플 데이터로 뼈대 코드와 대시보드 틀</td><td>샘플 데이터로 <code>make all</code>이 끝까지 돈다</td></tr>
+  <tr><td>1일차</td><td>본 데이터 적재(Bronze), 오염 9종 정제(Silver), 품질 규칙, 특징값 설계 시작</td><td>Silver 테이블과 품질 리포트 초안이 나온다</td></tr>
+  <tr><td>2일차</td><td>Gold 특징값, 규칙 탐지 · 네트워크 분석, 대시보드에 실데이터 연결, 정답지 채점</td><td>정밀도 · 재현율과 정제 전후 오탐률 수치가 나온다</td></tr>
+  <tr><td>3일차</td><td>(선택) ML · Kafka 시연, 발표 자료 · README, 시연 영상 녹화, 리허설 2회</td><td>새 PC에서 README대로 실행된다</td></tr>
+</table></div>
+
+<h2><span class="num">9</span>범위와 위험</h2>
+<div class="cards c2">
+  <div class="card"><h4>필수 (MVP)</h4><p>Bronze → Silver → Gold, 오염 9종 처리와 품질 리포트, 규칙 · 네트워크 탐지, 정답지 채점, 대시보드 5화면, 발표 자료.</p></div>
+  <div class="card"><h4>확장 (여유 시)</h4><p>Isolation Forest 비교, Kafka 실시간 재생 시연, Airflow DAG, Streamlit Cloud 배포, 실제 데이터(별첨 A)로 교차 검증.</p></div>
+</div>
+<div class="tbl" style="margin-top:16px"><table>
+  <tr><th style="width:30%">위험</th><th>대응</th></tr>
+  <tr><td>데이터가 늦게 온다</td><td>0일차에 샘플(1일치)을 먼저 받아 뼈대를 완성해 둡니다. 본 데이터는 같은 스키마라 바로 갈아 끼웁니다.</td></tr>
+  <tr><td>데이터가 스키마와 다르다</td><td>Bronze에서 스키마 검사를 먼저 돌려 차이를 목록으로 만들고, 데이터 팀에 즉시 공유합니다. 차이 자체도 "오염"으로 리포트에 넣습니다.</td></tr>
+  <tr><td>데이터가 너무 크다</td><td>Parquet + DuckDB로 처리하고, 개발은 하루치로 하고 전체는 마지막에 한 번 돌립니다.</td></tr>
+  <tr><td>탐지 성능이 낮다</td><td>성능보다 "정제 전후 차이"와 "왜 이 규칙인가"를 설명하는 데 집중합니다. 출제자들도 점수보다 설명을 더 중요하게 봤습니다(별첨 B-11).</td></tr>
+  <tr><td>시연 중 오류</td><td>3일차 오후에 시연 영상을 미리 녹화해 둡니다.</td></tr>
+</table></div>
+
+<h2><span class="num">10</span>성과 지표와 예상 질문</h2>
+<div class="cards c2">
+  <div class="kpi"><div class="v">오탐률 변화</div><div class="l">정제 전 대비 정제 후, 정상 유저를 봇으로 잘못 잡은 비율</div></div>
+  <div class="kpi"><div class="v">정밀도 · 재현율</div><div class="l">정답지 기준 봇 · 작업장 · RMT 탐지 성능</div></div>
+  <div class="kpi"><div class="v">오염 탐지율</div><div class="l">데이터 팀이 넣은 오염 중 우리가 찾아낸 비율</div></div>
+  <div class="kpi"><div class="v">처리 시간</div><div class="l">전체 데이터를 <code>make all</code>로 처리하는 데 걸린 시간</div></div>
+</div>
+<div class="qa" style="margin-top:20px"><div class="q">"가짜 데이터 아닌가요?"</div><div class="a">데이터 팀이 실제 게임사 대회(엔씨소프트 GDMC 2017, 빅콘테스트)의 로그 구조와 실제 봇 연구의 비율을 참고해 만들었습니다. 실제 데이터 출처는 별첨 A에 정리했습니다.</div></div>
+<div class="qa"><div class="q">"게임 회사에서만 쓰는 기술 아닌가요?"</div><div class="a">이벤트 로그 수집 · 정제 · 이상 탐지 구조는 이커머스 부정 주문, 금융 이상 거래 탐지에 그대로 적용됩니다.</div></div>
+<div class="qa"><div class="q">"왜 처음부터 ML을 쓰지 않았나요?"</div><div class="a">설명할 수 있는 규칙으로 기준선을 먼저 만들고, ML이 그 기준선을 얼마나 개선하는지 숫자로 비교하기 위해서입니다.</div></div>
+<a class="back noprint" href="#">↑ 맨 위로</a>
+</main>
+
+<footer class="sitefoot">Log Watchdog · AI Ready 데이터 엔지니어링 캠프 팀 프로젝트 · 기획 v0.2 · 2026.10</footer>
+</body></html>
